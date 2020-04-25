@@ -60,6 +60,7 @@ class almacenamiento:
       if x in self.jisho.keys():
         for i in range(self.tam):
           y = self.data[i]
+          #posible error cuando self.data == 0
           if y[0] == x:
             self.data[i] = 0
             self.dispo.append(i)
@@ -73,13 +74,6 @@ class almacenamiento:
 def randomword(length):
    letters = string.ascii_lowercase
    return ''.join(random.choice(letters) for i in range(length))
-
-a = almacenamiento()
-def pru():
-  for i in range(10):
-    x = randomword(6)
-    lista = [x,23,i,1,"12-02-12"]
-    a.add(lista)
     
 
 
