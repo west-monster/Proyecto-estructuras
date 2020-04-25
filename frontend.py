@@ -1,6 +1,7 @@
 import os
 from os import system
 from tarea import *
+from pickles import *
 def option():
     while True:
         menuElements = ["Menú principal", "- l ----- Añadir","- c ----- Crear categoria", "- a ----- Cargar data Auto", "- m ----- Cargar data manual",
@@ -46,12 +47,12 @@ def notDefined():
     _ = system('cls') 
 def load():
     amnt = int(input("Ingrese el numero de elementos a cargar: "))
-    a = almacenamiento()
+    
     t0 = time()
     for i in range(amnt):
         x = randomword(6)
         lista = [x,23,i,1,"12-02-12"]
-        a.add(lista)
+        cargarObjeto(lista,"Default")
     tf = time()
     print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
@@ -105,4 +106,8 @@ def filterMenu():
     notDefined()
 def deleteEverything():
     notDefined()    
-option()
+
+if __name__ == '__main__':
+    if not os.path.exists("Default.pickle"):
+        crearSesion("Default")
+    option()
