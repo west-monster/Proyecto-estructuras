@@ -2,6 +2,7 @@ import os
 from os import system
 from estructuras import *
 from pickles import *
+from time import time 
 def option():
     while True:
         menuElements = ["Menú principal", "- l ----- Añadir","- c ----- Crear categoria", "- a ----- Cargar data Auto", "- m ----- Cargar data manual",
