@@ -1,4 +1,3 @@
-import numpy as np
 from tarea import almacenamiento
 import pickle
 
