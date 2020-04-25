@@ -45,8 +45,9 @@ class almacenamiento:
       if name in self.dictNames.keys():
         for i in range(self.size):
           y = self.data[i]
-          if y[0] == name:
-            return i
+            if y != 0:
+                 if y[0] == name:
+                    return i
       else:
         print("No se encontró el item")
 
@@ -57,11 +58,11 @@ class almacenamiento:
       if name in self.dictNames.keys():
         for i in range(self.size):
           y = self.data[i]
-          #posible error cuando self.data == 0
-          if y[0] == name:
-            self.data[i] = 0
-            self.freeSpace.append(i)
-            break
+          if y != 0:
+              if y[0] == name:
+                self.data[i] = 0
+                self.freeSpace.append(i)
+                break
         self.dictNames.pop(name)
       else:
         print("No se encontró el item")
