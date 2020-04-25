@@ -39,7 +39,7 @@ class almacenamiento:
             temp[3] = dataList[3] + temp[3]
           else:
             self.dictNames[dataList[0]] = self.references
-            self.data[self.size] = x
+            self.data[self.size] = datalist
             self.size += 1
             self.references += 1
 
