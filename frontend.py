@@ -49,51 +49,52 @@ def notDefined():
 def load():
     amnt = int(input("Ingrese el numero de elementos a cargar: "))
     
+    almacen=cargarSesion("Default")
     t0 = time()
     for i in range(amnt):
-        x = randomword(6)
-        lista = [x,23,i,1,"12-02-12"]
-        cargarObjeto(lista,"Default")
-    
+        lista=[]
+      
+        lista.append(input("Ingrese nombre: "))
+        lista.append(int(input("Ingrese precio: ")))
+        lista.append(int(input("Ingrese codigo de barras: ")))
+        lista.append(int(input("Ingrese cantidad: ")))
+
+        lista.append("{}/{}/{}".format(today.day,today.month,today.year))
+        #x = randomword(6)
+        #lista = [x,23,i,1,"12-02-12"] #usar para pruebas random
+        almacen.add(almacen,lista)
+    guardarSesion("Default")
     tf = time()
     print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
     _ = system('cls') 
+
 def delete():
     amnt = int(input("Ingrese el numero de elementos a eliminar: "))
-    a = almacenamiento()
-    for i in range(amnt):
-        x = randomword(6)
-        lista = [x,23,i,1,"12-02-12"]
-        a.add(lista)
 
-    deleted = 0
-    t0 = time()
-    while deleted < amnt:
-        a.delet(list(a.jisho.keys())[0])
-        deleted +=1
-    tf = time()
+    almacen=cargarSesion("Default")
+
+    for _ in range(amnt):
+        almacen.delete("Ingrese nombre de objeto a eliminar: ")
+
+    guardarSesion(almacen,"Default")
 
     print("El tiempo para eliminar ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
-    _ = system('cls') 
+    _ = system('cls')  
 def search():
     amnt = int(input("Ingrese el numero de elementos a buscar: "))
-    a = almacenamiento()
-    for i in range(amnt):
-        x = randomword(6)
-        lista = [x,23,i,1,"12-02-12"]
-        a.add(lista)
+    almacen=cargarSesion("Default")
 
     searched = 0
     t0 = time()
     while searched < amnt:
-        a.search(list(a.jisho.keys())[0])
+        almacen.search("Ingrese nombre de objeto a buscar: ")
         searched +=1
     tf = time()
-
+    guardarSesion(almacen,"Default")
     print("El tiempo para buscar ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
