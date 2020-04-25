@@ -4,8 +4,6 @@
 import numpy as np
 import random
 import string
-from time import time
-
 
 class almacenamiento:
     def __init__(self):
