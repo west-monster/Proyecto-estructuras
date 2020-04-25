@@ -1,9 +1,10 @@
-# arreglos dinamicos con numpy vercion 2.0
+# arreglos dinamicos con numpy version 2.0
 # Nombre, precio, codigo de barras, cantidad
 
 import numpy as np
 import random
 import string
+from time import time
 
 
 class almacenamiento:
@@ -38,7 +39,7 @@ class almacenamiento:
             temp[3] = dataList[3] + temp[3]
           else:
             self.dictNames[dataList[0]] = self.references
-            self.data[self.size] = datalist
+            self.data[self.size] = dataList
             self.size += 1
             self.references += 1
 
@@ -48,6 +49,7 @@ class almacenamiento:
           y = self.data[i]
           if y[0] == name:
             return i
+            break
       else:
         print("No se encontró el item")
 
@@ -57,13 +59,12 @@ class almacenamiento:
     def delet(self,name):
       if name in self.dictNames.keys():
         for i in range(self.size):
-            if i != 0:
-              y = self.data[i]
-              #posible error cuando self.data == 0
-              if y[0] == name:
-                self.data[i] = 0
-                self.freeSpace.append(i)
-                break
+          y = self.data[i]
+          #posible error cuando self.data == 0
+          if y[0] == name:
+            self.data[i] = 0
+            self.freeSpace.append(i)
+            break
         self.dictNames.pop(name)
       else:
         print("No se encontró el item")
