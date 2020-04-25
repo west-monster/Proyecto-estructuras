@@ -16,7 +16,7 @@ class almacenamiento:
         self.freeSpace = []
         self.dictNames = {"nombre": 0}
 
-    def add(self, x):
+    def add(self, dataList):
         if self.size == self.capacity:
             self.capacity *= 2
             newdata = np.zeros((self.capacity,),dtype=object)
@@ -24,48 +24,48 @@ class almacenamiento:
             self.data = newdata
         if len(self.freeSpace) != 0:
           
-          if x[0] in self.dictNames.keys():
-            temp = self.data[self.search(x[0])]
-            temp[3] = x[3] + temp[3]
+          if dataList[0] in self.dictNames.keys():
+            temp = self.data[self.search(dataList[0])]
+            temp[3] = dataList[3] + temp[3]
           else:
-            self.dictNames[x[0]] = self.references
-            self.data[self.freeSpace[0]] = x
+            self.dictNames[dataList[0]] = self.references
+            self.data[self.freeSpace[0]] = dataList
             self.references += 1
             self.freeSpace.pop(0)
 
         else:
-          if x[0] in self.dictNames.keys():
-            temp = self.data[self.search(x[0])]
-            temp[3] = x[3] + temp[3]
+          if dataList[0] in self.dictNames.keys():
+            temp = self.data[self.search(dataList[0])]
+            temp[3] = dataList[3] + temp[3]
           else:
-            self.dictNames[x[0]] = self.references
+            self.dictNames[dataList[0]] = self.references
             self.data[self.size] = x
             self.size += 1
             self.references += 1
 
-    def search(self,x):
-      if x in self.dictNames.keys():
+    def search(self,name):
+      if name in self.dictNames.keys():
         for i in range(self.size):
           y = self.data[i]
-          if y[0] == x:
+          if y[0] == name:
             return i
             break
       else:
         print("No se encontró el item")
 
-    def searcher(self,x):
-      print(self.data[self.search(x)])
+    def searcher(self,name):
+      print(self.data[self.search(name)])
 
-    def delet(self,x):
-      if x in self.dictNames.keys():
+    def delet(self,name):
+      if name in self.dictNames.keys():
         for i in range(self.size):
           y = self.data[i]
           #posible error cuando self.data == 0
-          if y[0] == x:
+          if y[0] == name:
             self.data[i] = 0
             self.freeSpace.append(i)
             break
-        self.dictNames.pop(x)
+        self.dictNames.pop(name)
       else:
         print("No se encontró el item")
 
