@@ -49,7 +49,6 @@ class almacenamiento:
           y = self.data[i]
           if y[0] == name:
             return i
-            break
       else:
         print("No se encontró el item")
 
