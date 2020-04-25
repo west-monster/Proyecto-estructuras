@@ -14,7 +14,7 @@ class Stack:
             neNode = Node(data)
             newNode.next = self.head
             self.head = newNode
-    def empty(self):
+    def empty()
         return self.head == None
     def pop(self):
         if self.empty():

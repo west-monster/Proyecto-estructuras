@@ -1,6 +1,6 @@
 import os
 from os import system
-from tarea import *
+from estructuras import *
 from pickles import *
 def option():
     while True:
@@ -53,6 +53,7 @@ def load():
         x = randomword(6)
         lista = [x,23,i,1,"12-02-12"]
         cargarObjeto(lista,"Default")
+    
     tf = time()
     print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
