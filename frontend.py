@@ -3,6 +3,7 @@ from os import system
 from estructuras import *
 from pickles import *
 from time import time 
+from datetime import date
 def option():
     while True:
         menuElements = ["Menú principal", "- l ----- Añadir","- c ----- Crear categoria", "- a ----- Cargar data Auto", "- m ----- Cargar data manual",
@@ -62,8 +63,8 @@ def load():
         lista.append("{}/{}/{}".format(today.day,today.month,today.year))
         #x = randomword(6)
         #lista = [x,23,i,1,"12-02-12"] #usar para pruebas random
-        almacen.add(almacen,lista)
-    guardarSesion("Default")
+        almacen.add(lista)
+    guardarSesion("Default",almacen)
     tf = time()
     print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
@@ -78,7 +79,7 @@ def delete():
     for _ in range(amnt):
         almacen.delete("Ingrese nombre de objeto a eliminar: ")
 
-    guardarSesion(almacen,"Default")
+    guardarSesion("Default",almacen)
 
     print("El tiempo para eliminar ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
@@ -94,7 +95,7 @@ def search():
         almacen.search("Ingrese nombre de objeto a buscar: ")
         searched +=1
     tf = time()
-    guardarSesion(almacen,"Default")
+    guardarSesion("Default", almacen)
     print("El tiempo para buscar ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
