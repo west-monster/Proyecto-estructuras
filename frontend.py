@@ -21,7 +21,6 @@ def option():
         answer = input()
 
         if answer == "m":
-            print("Ok")
             show()
         if answer == "l":
             load()
@@ -33,7 +32,7 @@ def option():
             deleteEverything() 
         elif answer == "e":
             delete()
-        elif answer == "DEV":
+        elif len(answer) > 0 and answer.split()[0] == "DEV":
             if len(answer.split()) > 1:
                 if answer.split()[1] == "--help":
                     print("-l agregar masivamente".ljust(23).center(os.get_terminal_size().columns),  end = '')
@@ -100,8 +99,9 @@ def load():
         #lista = [x,23,i,1,"12-02-12"] #usar para pruebas random
         almacen.add(lista)
     guardarSesion("Default",almacen)
-    tf = time()
-    print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
+    print("Elementos añadidos")	
+
+    
 
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
