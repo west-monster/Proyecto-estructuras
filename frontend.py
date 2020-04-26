@@ -100,7 +100,9 @@ def load():
         almacen.add(lista)
     guardarSesion("Default",almacen)
     tf = time()
+    print("Elementos añadidos")	
     print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
+    
 
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
