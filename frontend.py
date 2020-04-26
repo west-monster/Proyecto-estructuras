@@ -112,7 +112,7 @@ def search():
         toSearch = input()
         elmt = almacen.search(toSearch)
         searched +=1
-        if elmt != 0:
+        if elmt != None:
             printElement(elmt,almacen)
 
     guardarSesion("Default", almacen)
