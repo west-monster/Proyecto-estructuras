@@ -1,5 +1,5 @@
 import numpy as np
-from tarea import almacenamiento
+from estructuras import almacenamiento
 import pickle
 
 def crearSesion(nombre):
