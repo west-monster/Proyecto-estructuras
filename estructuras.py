@@ -69,6 +69,17 @@ class almacenamiento:
       else:
         print("No se encontró el item")
 
+    def bSort(self):
+      ans= np.array(list(self.dictNames.keys()))
+      n=len(ans)
+      for i in range(n-1):
+        for j in range(n-1-i):
+          if ans[j]>ans[j+1]:
+            temp=ans[j]
+            ans[j]=ans[j+1]
+            ans[j+1]=temp
+      return ans
+
 
 def randomword(length):
     letters = string.ascii_lowercase

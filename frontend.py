@@ -9,12 +9,12 @@ from prettytable import PrettyTable
 def option():
     while True:
         menuElements = ["Menú principal","- m ----- Mostrar todo", "- l ----- Añadir","- a ----- Añadir data Auto", "- g ----- Guardar",
-         "- b ----- Buscar", "- d ----- Eliminar todo", "- e ----- Eliminar" , "- q ----- Salir"]
+         "- b ----- Buscar","- o ----- Ordenar alfabeticamente", "- d ----- Eliminar todo", "- e ----- Eliminar" , "- q ----- Salir"]
         #Print menu with format
         print(menuElements[0].center(os.get_terminal_size().columns,'-'),  end = '')
 
         for x in range(1, len(menuElements)):
-            print(menuElements[x].ljust(27).center(os.get_terminal_size().columns),  end = '')
+            print(menuElements[x].ljust(33).center(os.get_terminal_size().columns),  end = '')
             
         print(''.center(os.get_terminal_size().columns,'-'))
 
@@ -32,6 +32,9 @@ def option():
             deleteEverything() 
         elif answer == "e":
             delete()
+
+        elif answer == "o":
+            showSort()
         elif len(answer) > 0 and answer.split()[0] == "DEV":
             if len(answer.split()) > 1:
                 if answer.split()[1] == "--help":
@@ -227,9 +230,19 @@ def printElement(index, almacen):
         t.add_row(almacen.data[index])
     print(t)
 
+def showSort():
+    almacen = cargarSesion("Default")
+    t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
+    for x in almacen.bSort():
+        if almacen.data[int(almacen.dictNames.get(x))] != 0:
+            t.add_row(almacen.data[int(almacen.dictNames.get(x))])
+    print(t)
+
+
 if __name__ == '__main__':
     if not os.path.exists("Default.pickle"):
         crearSesion("Default")
+    
     option()
 
 			
