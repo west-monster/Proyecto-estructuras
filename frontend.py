@@ -5,9 +5,10 @@ from pickles import *
 from time import time 
 from datetime import date
 from prettytable import PrettyTable
+
 def option():
     while True:
-        menuElements = ["Menú principal", "- l ----- Añadir","- a ----- Añadir data Auto", "- g ----- Guardar",
+        menuElements = ["Menú principal","- m ----- Mostrar todo", "- l ----- Añadir","- a ----- Añadir data Auto", "- g ----- Guardar",
          "- b ----- Buscar", "- d ----- Eliminar todo", "- e ----- Eliminar" , "- q ----- Salir"]
         #Print menu with format
         print(menuElements[0].center(os.get_terminal_size().columns,'-'),  end = '')
@@ -17,8 +18,12 @@ def option():
             
         print(''.center(os.get_terminal_size().columns,'-'))
 
-        answer = input() 
-        if answer == 'l':
+        answer = input()
+
+        if answer == "m":
+            print("Ok")
+            show()
+        if answer == "l":
             load()
         elif answer == "a": 
             loadDataAuto()
@@ -28,7 +33,7 @@ def option():
             deleteEverything() 
         elif answer == "e":
             delete()
-        elif answer.split()[0] == "DEV":
+        elif answer == "DEV":
             if len(answer.split()) > 1:
                 if answer.split()[1] == "--help":
                     print("-l agregar masivamente".ljust(23).center(os.get_terminal_size().columns),  end = '')
@@ -66,15 +71,26 @@ def notDefined():
     _ = input()
     _ = system('cls') 
 
+def show():
+    almacen = cargarSesion("Default")
+    t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
+    for index in range(0,almacen.size):
+        if almacen.data[index] != 0:
+            t.add_row(almacen.data[index])
+    print(t)
+
+    print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
+    _ = input()
+    _ = system('cls')
+
 def load():
     amnt = int(input("Ingrese el numero de elementos a cargar: "))
-    
     almacen=cargarSesion("Default")
     for i in range(amnt):
         lista=[]
       
         lista.append(input("Ingrese nombre: "))
-        lista.append(int(input("Ingrese precio: ")))
+        lista.append(float(input("Ingrese precio: ")))
         lista.append(int(input("Ingrese codigo de barras: ")))
         lista.append(int(input("Ingrese cantidad: ")))
 
@@ -202,11 +218,13 @@ def deleteEverything():
     print("Datos eliminados".center(os.get_terminal_size().columns))
     _ = input()
     _ = system('cls')
+
 def printElement(index, almacen):
     t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
     if almacen.data[index] != 0:
         t.add_row(almacen.data[index])
     print(t)
+
 if __name__ == '__main__':
     if not os.path.exists("Default.pickle"):
         crearSesion("Default")
