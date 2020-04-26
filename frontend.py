@@ -96,10 +96,12 @@ def load():
 
         lista.append(date.today())
         #x = randomword(6)
-        #lista = [x,23,i,1,"03-08-1917"] #usar para pruebas random
+        #lista = [x,23,i,1,"12-02-12"] #usar para pruebas random
         almacen.add(lista)
-    guardarSesion("Default", almacen)
-    print("Elementos añadidos")
+    guardarSesion("Default",almacen)
+    tf = time()
+    print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
+
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
     _ = system('cls') 
@@ -112,9 +114,7 @@ def delete():
     for _ in range(amnt):
         toDelete = input("Ingrese nombre de objeto a eliminar: ")
         almacen.delet(toDelete)
-
-    guardarSesion("Default", almacen)
-
+    guardarSesion("Default",almacen)
     print("El tiempo para eliminados")
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
@@ -188,6 +188,7 @@ def masiveSearch():
         searched +=1
     guardarSesion("Default", almacen)
     tf = time()
+    guardarSesion("Default", almacen)
 
     print("El tiempo para buscar ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
