@@ -12,7 +12,7 @@ class almacenamiento:
         self.size = 0
         self.references = 0
         self.freeSpace = []
-        self.dictNames = {"nombre": -1}
+        self.dictNames = {}
 
     def add(self, dataList):
         if self.size == self.capacity:
@@ -58,10 +58,13 @@ class almacenamiento:
           y = self.data[i]
           if y != 0:
               if y[0] == name:
-                self.data[i] = 0
-                self.freeSpace.append(i)
-                break
-        self.dictNames.pop(name)
+                if y[3] == 1:
+                  self.data[i] = 0
+                  self.freeSpace.append(i)
+                  self.dictNames.pop(name)
+                else:
+                  y[3] -= 1
+              break
       else:
         print("No se encontró el item")
 

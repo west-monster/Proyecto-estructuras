@@ -115,7 +115,7 @@ def delete():
         toDelete = input("Ingrese nombre de objeto a eliminar: ")
         almacen.delet(toDelete)
     guardarSesion("Default",almacen)
-    print("El tiempo para eliminados")
+    print("Elemento eliminado")
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
     _ = system('cls')  
@@ -214,7 +214,7 @@ def deleteEverything():
     almacen.size = 0
     almacen.references = 1
     almacen.freeSpace = []
-    almacen.dictNames = {"nombre": 0}
+    almacen.dictNames = {}
     guardarSesion("Default", almacen)
     print("Datos eliminados".center(os.get_terminal_size().columns))
     _ = input()
