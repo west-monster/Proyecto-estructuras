@@ -32,7 +32,7 @@ def option():
             deleteEverything() 
         elif answer == "e":
             delete()
-        elif answer == "DEV":
+        elif len(answer) > 0 and answer.split()[0] == "DEV":
             if len(answer.split()) > 1:
                 if answer.split()[1] == "--help":
                     print("-l agregar masivamente".ljust(23).center(os.get_terminal_size().columns),  end = '')
