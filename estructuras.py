@@ -11,7 +11,7 @@ class almacenamiento:
         self.capacity = 50
         self.size = 0
         self.references = 0
-        self.freeSpace = []
+        self.freeSpace = linkedQueue()
         self.dictNames = {"nombre": -1}
 
     def add(self, dataList):
@@ -20,14 +20,18 @@ class almacenamiento:
             newdata = np.zeros((self.capacity,),dtype=object)
             newdata[:self.size] = self.data
             self.data = newdata
-        if len(self.freeSpace) != 0:
+
+
+        if self.freeSpace.empty() == False:
+          
           if dataList[0] in self.dictNames.keys():
             temp = self.data[self.search(dataList[0])]
             temp[3] = dataList[3] + temp[3]
           else:
-            self.dictNames[dataList[0]] = self.freeSpace[0]
-            self.data[self.freeSpace[0]] = dataList
-            self.freeSpace.pop(0)
+
+            currentRef=self.freeSpace.dequeue()
+            self.dictNames[dataList[0]] = currentRef
+            self.data[currentRef] = dataList
 
         else:
           if dataList[0] in self.dictNames.keys():
@@ -57,10 +61,10 @@ class almacenamiento:
         for i in range(self.size):
           y = self.data[i]
           if y != 0:
-              if y[0] == name:
-                self.data[i] = 0
-                self.freeSpace.append(i)
-                break
+            if y[0] == name:
+              self.data[i] = 0
+              self.freeSpace.inqueue(i)
+              break
         self.dictNames.pop(name)
       else:
         print("No se encontró el item")
@@ -70,3 +74,31 @@ def randomword(length):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(length))
 
+class node:
+  def __init__(self, data):
+    self.data=data
+    self.next=None
+
+class linkedQueue:
+  def __init__(self):
+    self.head = None
+    self.tail = None
+
+  def inqueue(self,data):
+    new_node = node(data)
+    if self.head==None:
+        self.head=new_node
+    else:
+        self.tail.next=new_node
+    self.tail=new_node
+
+  def empty(self):
+    return self.head==None
+
+  def dequeue(self):
+    if empty():
+      raise Exception("empty queue")
+    else:
+      ans=self.head.data
+      self.head=self.head.next
+      return ans

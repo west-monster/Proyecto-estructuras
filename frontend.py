@@ -86,6 +86,7 @@ def show():
 def load():
     amnt = int(input("Ingrese el numero de elementos a cargar: "))
     almacen=cargarSesion("Default")
+    t0=time()
     for i in range(amnt):
         lista=[]
       
