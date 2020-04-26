@@ -10,9 +10,9 @@ class almacenamiento:
         self.data = np.zeros((50,) ,dtype=object)
         self.capacity = 50
         self.size = 0
-        self.references = 1
+        self.references = 0
         self.freeSpace = []
-        self.dictNames = {"nombre": 0}
+        self.dictNames = {"nombre": -1}
 
     def add(self, dataList):
         if self.size == self.capacity:
@@ -21,14 +21,12 @@ class almacenamiento:
             newdata[:self.size] = self.data
             self.data = newdata
         if len(self.freeSpace) != 0:
-          
           if dataList[0] in self.dictNames.keys():
             temp = self.data[self.search(dataList[0])]
             temp[3] = dataList[3] + temp[3]
           else:
-            self.dictNames[dataList[0]] = self.references
+            self.dictNames[dataList[0]] = self.freeSpace[0]
             self.data[self.freeSpace[0]] = dataList
-            self.references += 1
             self.freeSpace.pop(0)
 
         else:
