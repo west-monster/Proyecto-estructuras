@@ -11,13 +11,8 @@ class almacenamiento:
         self.capacity = 50
         self.size = 0
         self.references = 0
-<<<<<<< HEAD
-        self.freeSpace = []
         self.dictNames = {}
-=======
         self.freeSpace = linkedQueue()
-        self.dictNames = {"nombre": -1}
->>>>>>> ecc507b1139262741a24f33a3e5fbdcab96767c2
 
     def add(self, dataList):
         if self.size == self.capacity:
