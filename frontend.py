@@ -21,7 +21,6 @@ def option():
         answer = input()
 
         if answer == "m":
-            print("Ok")
             show()
         if answer == "l":
             load()
