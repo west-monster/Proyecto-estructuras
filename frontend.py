@@ -7,7 +7,7 @@ from datetime import date
 from prettytable import PrettyTable
 def option():
     while True:
-        menuElements = ["Menú principal", "- l ----- Añadir","- a ----- Cargar data Auto", "- g ----- Guardar",
+        menuElements = ["Menú principal", "- l ----- Añadir","- a ----- Añadir data Auto", "- g ----- Guardar",
          "- b ----- Buscar", "- d ----- Eliminar todo", "- e ----- Eliminar" , "- q ----- Salir"]
         #Print menu with format
         print(menuElements[0].center(os.get_terminal_size().columns,'-'),  end = '')
