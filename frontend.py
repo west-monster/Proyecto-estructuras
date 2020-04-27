@@ -212,14 +212,9 @@ def loadDataAuto():
     _ = system('cls')
 
 def deleteEverything():
-    almacen=cargarSesion("Default") 
-    almacen.data = np.zeros((50,) ,dtype=object)
-    almacen.capacity = 50
-    almacen.size = 0
-    almacen.references = 1
-    almacen.freeSpace = []
-    almacen.dictNames = {}
-    guardarSesion("Default", almacen)
+    os.remove("Default.pickle")
+    crearSesion("Default")
+
     print("Datos eliminados".center(os.get_terminal_size().columns))
     _ = input()
     _ = system('cls')
@@ -234,8 +229,7 @@ def showSort():
     almacen = cargarSesion("Default")
     t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
     for x in almacen.bSort():
-        if almacen.data[int(almacen.dictNames.get(x))] != 0:
-            t.add_row(almacen.data[int(almacen.dictNames.get(x))])
+        t.add_row(almacen.data[int(almacen.dictNames.get(x))])
     print(t)
 
 
