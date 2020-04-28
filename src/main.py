@@ -10,7 +10,7 @@ from  prettytable import PrettyTable
 
 def option():
     while True:
-        menuElements = ["Menú principal","- m ----- Mostrar todo", "- l ----- Añadir", "- e ----- Editar elemento","- g ----- Guardar",
+        menuElements = ["Menú principal","- m ----- Mostrar todo", "- l ----- Añadir", "- c ----- Editar elemento","- g ----- Guardar",
          "- b ----- Buscar","- o ----- Ordenar alfabeticamente", "- d ----- Eliminar todo", "- e ----- Eliminar" , "- q ----- Salir"]
         #Print menu with format
         print(menuElements[0].center(os.get_terminal_size().columns,'-'),  end = '')
