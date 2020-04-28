@@ -10,7 +10,7 @@ from  prettytable import PrettyTable
 
 def option():
     while True:
-        menuElements = ["Menú principal","- m ----- Mostrar todo", "- l ----- Añadir","- a ----- Añadir data Auto", "- g ----- Guardar",
+        menuElements = ["Menú principal","- m ----- Mostrar todo", "- l ----- Añadir", "- e ----- Editar elemento","- g ----- Guardar",
          "- b ----- Buscar","- o ----- Ordenar alfabeticamente", "- d ----- Eliminar todo", "- e ----- Eliminar" , "- q ----- Salir"]
         #Print menu with format
         print(menuElements[0].center(os.get_terminal_size().columns,'-'),  end = '')
@@ -24,10 +24,10 @@ def option():
 
         if answer == "m":
             show()
-        if answer == "l":
+        elif answer == "l":
             load()
-        elif answer == "a": 
-            loadDataAuto()
+        elif answer == "e":
+            searchToEdit()
         elif answer == "b":
             search()
         elif answer == "d":
@@ -66,7 +66,7 @@ def option():
 
         else:
             _ = system('cls') 
-            print("La opcion es incorrecta, ingresela de nuevo")
+            print("La opcion es incorrecta, ingresela de nuevo".center(os.get_terminal_size().columns))
 
 def notDefined():
     _ = system('cls') 
@@ -119,7 +119,8 @@ def delete():
 
     for _ in range(amnt):
         toDelete = input("Ingrese nombre de objeto a eliminar: ")
-        almacen.delet(toDelete)
+        amntToDelete = int(input("Ingrese la cantidad a eliminar: "))
+        almacen.delet(toDelete, amntToDelete)
     guardarSesion("Default",almacen)
     print("Elemento eliminado")
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
@@ -131,7 +132,7 @@ def search():
     almacen=cargarSesion("Default")
     searched = 0
     while searched < amnt:
-        toSearch = input()
+        toSearch = input("Ingrese el elemento a buscar: ")
         elmt = almacen.search(toSearch)
         searched +=1
         if elmt != None:
@@ -141,7 +142,32 @@ def search():
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
     _ = system('cls') 
+def searchToEdit():
+    amnt = int(input("Ingrese el numero de elementos a editar: "))
+    almacen=cargarSesion("Default")
+    edited = 0
+    while edited < amnt:
+        toSearch = input("Ingrese el elemento a editar: ")
+        elmt = almacen.search(toSearch)
+        edited +=1
+        if elmt != None:
+            printElement(elmt,almacen)
+            edit(elmt, almacen)
+        print()
 
+    guardarSesion("Default", almacen)
+    print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
+    _ = input()
+    _ = system('cls') 
+def edit(elmt, almacen):
+    lista=[]
+      
+    lista.append(input("Ingrese el nuevo nombre: "))
+    lista.append(float(input("Ingrese el nuevo precio: ")))
+    lista.append(int(input("Ingrese el nuevo codigo de barras: ")))
+    lista.append(int(input("Ingrese la nueva cantidad: ")))
+    lista.append(date.today())
+    almacen.edit(elmt, lista)
 def massiveLoad():
     _ = system('cls')
     amnt = int(input("Ingrese el numero de elementos a cargar: "))
@@ -201,17 +227,6 @@ def masiveSearch():
     _ = input()
     _ = system('cls')
 
-def loadDataAuto():
-    _ = system('cls')
-    almacen = cargarSesion("Default")
-    t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
-    for x in almacen.dictNames:
-        if almacen.data[int(almacen.dictNames.get(x))] != 0:
-            t.add_row(almacen.data[int(almacen.dictNames.get(x))])
-    print(t)
-    print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
-    _ = input()
-    _ = system('cls')
 
 def deleteEverything():
     os.remove("../data/Default.pickle")
