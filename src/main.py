@@ -214,7 +214,7 @@ def loadDataAuto():
     _ = system('cls')
 
 def deleteEverything():
-    os.remove("Default.pickle")
+    os.remove("../data/Default.pickle")
     crearSesion("Default")
 
     print("Datos eliminados".center(os.get_terminal_size().columns))
@@ -236,7 +236,7 @@ def showSort():
 
 
 if __name__ == '__main__':
-    if not os.path.exists("Default.pickle"):
+    if not os.path.exists("../data/Default.pickle"):
         crearSesion("Default")
     
     option()
