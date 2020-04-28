@@ -1,10 +1,12 @@
 import os
 from os import system
-from estructuras import *
+from structures import *
 from pickles import *
 from time import time 
 from datetime import date
-from prettytable import PrettyTable
+import sys
+sys.path.insert(1, '../lib/prettytable-0.7.2')
+from  prettytable import PrettyTable
 
 def option():
     while True:
