@@ -195,22 +195,16 @@ def massiveLoad():
         os.system("cls")
 
 def massiveDelete():
-    amnt = int(input("Ingrese el numero de elementos a eliminar: "))
-    almacen=cargarSesion("Default")
-    for i in range(amnt):
-        x = randomword(6)
-        lista = [x,23,i,1,"03-08-1917"]
-        almacen.add(lista)
-    guardarSesion("Default", almacen)
-    deleted = 0
+    almacen = cargarSesion("Default")
+    print("eliminando todos los elementos un por uno")
     t0 = time()
-    while deleted < amnt:
-        almacen.delet(list(almacen.dictNames.keys())[0])
-        deleted +=1
+    n = almacen.size
+    for i in range(n):
+        almacen.data[i] = 0
+
     guardarSesion("Default", almacen)
     tf = time()
-
-    print("El tiempo para eliminar ", amnt, " elementos fue de: ", tf - t0,"s" )
+    print("El tiempo para eliminar todos elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
     if os.name == "posix":
