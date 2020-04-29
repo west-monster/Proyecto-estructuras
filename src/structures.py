@@ -83,6 +83,8 @@ class almacenamiento:
             ans[j+1]=temp
       return ans
 
+    def getDict(self):
+      return self.dictNames
 
 def randomword(length):
     letters = string.ascii_lowercase

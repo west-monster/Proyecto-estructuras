@@ -194,6 +194,7 @@ def massiveLoad():
     elif os.name == "ce" or os.name == "nt" or os.name == "dos":
         os.system("cls")
 
+
 def massiveDelete():
     amnt = int(input("Ingrese el numero de elementos a eliminar: "))
     almacen=cargarSesion("Default")
@@ -201,11 +202,14 @@ def massiveDelete():
         x = randomword(6)
         lista = [x,23,i,1,"03-08-1917"]
         almacen.add(lista)
-    guardarSesion("Default", almacen)
+    
     deleted = 0
+    
+    jisho=list(almacen.getDict().keys())
     t0 = time()
+
     while deleted < amnt:
-        almacen.delet(list(almacen.dictNames.keys())[0])
+        almacen.delet(jisho[deleted])
         deleted +=1
     guardarSesion("Default", almacen)
     tf = time()
@@ -227,9 +231,11 @@ def masiveSearch():
         almacen.add(lista)
     guardarSesion("Default", almacen)
     searched = 0
+
+    jisho=list(almacen.getDict().keys())
     t0 = time()
     while searched < amnt:
-        almacen.search(list(almacen.dictNames.keys())[0])
+        almacen.search(jisho[searched])
         searched +=1
     guardarSesion("Default", almacen)
     tf = time()
@@ -250,9 +256,11 @@ def loadDataAuto():
         os.system("cls")
     almacen = cargarSesion("Default")
     t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
-    for x in almacen.dictNames:
-        if almacen.data[int(almacen.dictNames.get(x))] != 0:
-            t.add_row(almacen.data[int(almacen.dictNames.get(x))])
+
+    jisho=almacen.getDict()
+    for x in jisho:
+        if almacen.data[int(jisho.get(x))] != 0:
+            t.add_row(almacen.data[int(jisho.get(x))])
     print(t)
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
@@ -281,8 +289,9 @@ def printElement(index, almacen):
 def showSort():
     almacen = cargarSesion("Default")
     t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
+    jisho=almacen.getDict()
     for x in almacen.bSort():
-        t.add_row(almacen.data[int(almacen.dictNames.get(x))])
+        t.add_row(almacen.data[int(jisho.get(x))])
     print(t)
 
 
