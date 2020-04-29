@@ -211,8 +211,8 @@ def massiveLoad():
         x = randomword(6)
         lista = [x,23,i,1,"12-02-12"]
         almacen.add(lista)
-    guardarSesion("Default", almacen)
     tf = time()
+    guardarSesion("Default", almacen)
     print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
@@ -229,8 +229,8 @@ def massiveDelete():
     for i in range(n):
         almacen.data[i] = 0
 
-    guardarSesion("Default", almacen)
     tf = time()
+    guardarSesion("Default", almacen)
     print("El tiempo para eliminar todos elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
@@ -252,7 +252,6 @@ def masiveSearch():
     while searched < amnt:
         almacen.search(list(almacen.dictNames.keys())[0])
         searched +=1
-    guardarSesion("Default", almacen)
     tf = time()
     guardarSesion("Default", almacen)
 
