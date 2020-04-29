@@ -26,7 +26,7 @@ def option():
             show()
         elif answer == "l":
             load()
-        elif answer == "e":
+        elif answer == "c":
             searchToEdit()
         elif answer == "b":
             search()
@@ -181,15 +181,15 @@ def searchToEdit():
             printElement(elmt,almacen)
             edit(elmt, almacen)
         print()
+
+    guardarSesion("Default", almacen)
+    print("Elemento editado".center(os.get_terminal_size().columns))
+    print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
+    _ = input()
     if os.name == "posix":
         os.system("clear")
     elif os.name == "ce" or os.name == "nt" or os.name == "dos":
         os.system("cls")
-
-    guardarSesion("Default", almacen)
-    print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
-    _ = input()
-    _ = system('cls') 
 def edit(elmt, almacen):
     lista=[]
       
