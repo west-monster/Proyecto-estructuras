@@ -45,7 +45,10 @@ def option():
                     print("-s buscar masivamente".ljust(23).center(os.get_terminal_size().columns),  end = '')
                     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
                     _ = input()
-                    _ = system('cls')
+                    if os.name == "posix":
+                        os.system("clear")
+                    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+                        os.system("cls")
                 elif answer.split()[1] == "-l":
                     massiveLoad()
                 elif answer.split()[1] == "-d":
@@ -58,22 +61,37 @@ def option():
                 print("Parametro esperado".center(os.get_terminal_size().columns,' '))  
                 print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
                 _ = input()
-                _ = system('cls') 
+                if os.name == "posix":
+                    os.system("clear")
+                elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+                    os.system("cls")
         elif answer == "q":
-            _ = system('cls') 
+            if os.name == "posix":
+                os.system("clear")
+            elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+                os.system("cls")
             print("Hasta pronto".center(os.get_terminal_size().columns,'*'))
             return False
 
         else:
-            _ = system('cls') 
-            print("La opcion es incorrecta, ingresela de nuevo".center(os.get_terminal_size().columns))
+            if os.name == "posix":
+                os.system("clear")
+            elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+                os.system("cls")
+            print("La opcion es incorrecta, ingresela de nuevo")
 
 def notDefined():
-    _ = system('cls') 
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
     print("Lo sentimos, esta utilidad estará disponible en futuras versiones.".center(os.get_terminal_size().columns))
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
-    _ = system('cls') 
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
 def show():
     almacen = cargarSesion("Default")
@@ -85,7 +103,10 @@ def show():
 
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
-    _ = system('cls')
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
 def load():
     amnt = int(input("Ingrese el numero de elementos a cargar: "))
@@ -110,7 +131,10 @@ def load():
 
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
-    _ = system('cls') 
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
 def delete():
     amnt = int(input("Ingrese el numero de elementos a eliminar: "))
@@ -125,7 +149,10 @@ def delete():
     print("Elemento eliminado")
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
-    _ = system('cls')  
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
 def search():
     amnt = int(input("Ingrese el numero de elementos a buscar: "))
@@ -154,6 +181,10 @@ def searchToEdit():
             printElement(elmt,almacen)
             edit(elmt, almacen)
         print()
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
     guardarSesion("Default", almacen)
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
@@ -169,7 +200,10 @@ def edit(elmt, almacen):
     lista.append(date.today())
     almacen.edit(elmt, lista)
 def massiveLoad():
-    _ = system('cls')
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
     amnt = int(input("Ingrese el numero de elementos a cargar: "))
     almacen=cargarSesion("Default")
     t0 = time()
@@ -182,28 +216,28 @@ def massiveLoad():
     print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
-    _ = system('cls')
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
 def massiveDelete():
-    amnt = int(input("Ingrese el numero de elementos a eliminar: "))
-    almacen=cargarSesion("Default")
-    for i in range(amnt):
-        x = randomword(6)
-        lista = [x,23,i,1,"03-08-1917"]
-        almacen.add(lista)
-    guardarSesion("Default", almacen)
-    deleted = 0
+    almacen = cargarSesion("Default")
+    print("eliminando todos los elementos un por uno")
     t0 = time()
-    while deleted < amnt:
-        almacen.delet(list(almacen.dictNames.keys())[0])
-        deleted +=1
+    n = almacen.size
+    for i in range(n):
+        almacen.data[i] = 0
+
     guardarSesion("Default", almacen)
     tf = time()
-
-    print("El tiempo para eliminar ", amnt, " elementos fue de: ", tf - t0,"s" )
+    print("El tiempo para eliminar todos elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
-    _ = system('cls')
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
 def masiveSearch():
     amnt = int(input("Ingrese el numero de elementos a buscar: "))
@@ -225,8 +259,28 @@ def masiveSearch():
     print("El tiempo para buscar ", amnt, " elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
-    _ = system('cls')
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
+def loadDataAuto():
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
+    almacen = cargarSesion("Default")
+    t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
+    for x in almacen.dictNames:
+        if almacen.data[int(almacen.dictNames.get(x))] != 0:
+            t.add_row(almacen.data[int(almacen.dictNames.get(x))])
+    print(t)
+    print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
+    _ = input()
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
 def deleteEverything():
     os.remove("../data/Default.pickle")
@@ -234,7 +288,10 @@ def deleteEverything():
 
     print("Datos eliminados".center(os.get_terminal_size().columns))
     _ = input()
-    _ = system('cls')
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
 def printElement(index, almacen):
     t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
