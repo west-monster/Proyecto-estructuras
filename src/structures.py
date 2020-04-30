@@ -14,7 +14,7 @@ class almacenamiento:
         self.dictNames = {}
         self.freeSpace = linkedQueue()
 
-    def add(self, dataList):
+    def add(self,dataList):
         if self.size == self.capacity:
             self.capacity *= 2
             newdata = np.zeros((self.capacity,),dtype=object)

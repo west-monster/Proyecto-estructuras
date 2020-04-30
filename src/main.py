@@ -109,24 +109,26 @@ def show():
         os.system("cls")
 
 def load():
-    amnt = int(input("Ingrese el numero de elementos a cargar: "))
-    almacen=cargarSesion("Default")
-    t0=time()
-    for i in range(amnt):
-        lista=[]
-      
-        lista.append(input("Ingrese nombre: "))
-        lista.append(float(input("Ingrese precio: ")))
-        lista.append(int(input("Ingrese codigo de barras: ")))
-        lista.append(int(input("Ingrese cantidad: ")))
+    try:
+        amnt = int(input("Ingrese el numero de elementos a cargar: "))
+        almacen=cargarSesion("Default")
+        t0=time()
+        for i in range(amnt):
+            lista=[]
 
-        lista.append(date.today())
-        #x = randomword(6)
-        #lista = [x,23,i,1,"12-02-12"] #usar para pruebas random
-        almacen.add(lista)
-    guardarSesion("Default",almacen)
-    print("Elementos añadidos")	
+            lista.append(input("Ingrese nombre: "))
+            lista.append(float(input("Ingrese precio: ")))
+            lista.append(int(input("Ingrese codigo de barras: ")))
+            lista.append(int(input("Ingrese cantidad: ")))
 
+            lista.append(date.today())
+            #x = randomword(6)
+            #lista = [x,23,i,1,"12-02-12"] #usar para pruebas random
+            almacen.add(lista)
+        guardarSesion("Default",almacen)
+        print("Elementos añadidos")
+    except:
+        print("comando invalido, presione enter para regresar al menú")
 
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
