@@ -45,11 +45,8 @@ class almacenamiento:
 
     def search(self,name):
       if name in self.dictNames.keys():
-        for i in range(self.size):
-          y = self.data[i]
-          if y != 0:
-            if y[0] == name:
-              return i
+        i = self.dictNames.get(name)
+        return i
       else:
         print("No se encontró el item")
 
@@ -119,3 +116,4 @@ class linkedQueue:
       ans=self.head.data
       self.head=self.head.next
       return ans
+
