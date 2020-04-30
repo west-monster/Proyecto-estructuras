@@ -232,7 +232,7 @@ def massiveDelete():
     n = almacen.size
     for i in range(n):
         almacen.data[i] = 0
-    alamacen.size = 0
+    almacen.size = 0
     guardarSesion("Default", almacen)
     tf = time()
     print("El tiempo para eliminar todos elementos fue de: ", tf - t0,"s" )
