@@ -118,3 +118,31 @@ class linkedQueue:
       ans=self.head.data
       self.head=self.head.next
       return ans
+
+def moveDown(array,parent,size):
+  child=2*parent+1
+  temp=array[parent]
+  
+  while child<size:
+    Max=array[child]
+
+    if child+1<size and array[child+1]>Max:
+      child+=1
+      Max=array[child]
+
+    if Max>temp:
+      array[parent]=Max
+      parent=child
+    else:
+      break
+    child=2*parent+1
+
+  array[parent]=temp
+
+
+def heapSort(array,size):
+  for i in range(size//2-1,-1,-1):
+    moveDown(array,i,size)
+  for i in range(size-1,0,-1):
+    array[0],array[i]=array[i],array[0]
+    moveDown(array,0,i)
