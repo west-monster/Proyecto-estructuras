@@ -10,8 +10,8 @@ from  prettytable import PrettyTable
 
 def option():
     while True:
-        menuElements = ["Menú principal","- m ----- Mostrar todo", "- l ----- Añadir","- a ----- Añadir data Auto", "- g ----- Guardar",
-         "- b ----- Buscar","- o ----- Ordenar alfabeticamente", "- d ----- Eliminar todo", "- e ----- Eliminar" , "- q ----- Salir"]
+        menuElements = ["Menú principal","- m ----- Mostrar todo", "- l ----- Añadir", "- c ----- Editar elemento",
+         "- b ----- Buscar","- o ----- Ordenar alfabeticamente", "- d ----- Eliminar todo", "- e ----- Eliminar" ,"- g ----- Guardar", "- q ----- Salir"]
         #Print menu with format
         print(menuElements[0].center(os.get_terminal_size().columns,'-'),  end = '')
 
@@ -24,10 +24,10 @@ def option():
 
         if answer == "m":
             show()
-        if answer == "l":
+        elif answer == "l":
             load()
-        elif answer == "a": 
-            loadDataAuto()
+        elif answer == "c":
+            searchToEdit()
         elif answer == "b":
             search()
         elif answer == "d":
@@ -109,25 +109,26 @@ def show():
         os.system("cls")
 
 def load():
-    amnt = int(input("Ingrese el numero de elementos a cargar: "))
-    almacen=cargarSesion("Default")
-    t0=time()
-    for i in range(amnt):
-        lista=[]
-      
-        lista.append(input("Ingrese nombre: "))
-        lista.append(float(input("Ingrese precio: ")))
-        lista.append(int(input("Ingrese codigo de barras: ")))
-        lista.append(int(input("Ingrese cantidad: ")))
+    try:
+        amnt = int(input("Ingrese el numero de elementos a cargar: "))
+        almacen=cargarSesion("Default")
+        t0=time()
+        for i in range(amnt):
+            lista=[]
 
-        lista.append(date.today())
-        #x = randomword(6)
-        #lista = [x,23,i,1,"12-02-12"] #usar para pruebas random
-        almacen.add(lista)
-    guardarSesion("Default",almacen)
-    print("Elementos añadidos")	
+            lista.append(input("Ingrese nombre: "))
+            lista.append(float(input("Ingrese precio: ")))
+            lista.append(int(input("Ingrese codigo de barras: ")))
+            lista.append(int(input("Ingrese cantidad: ")))
 
-    
+            lista.append(date.today())
+            #x = randomword(6)
+            #lista = [x,23,i,1,"12-02-12"] #usar para pruebas random
+            almacen.add(lista)
+        guardarSesion("Default",almacen)
+        print("Elementos añadidos")
+    except:
+        print("comando invalido, presione enter para regresar al menú")
 
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
@@ -143,7 +144,8 @@ def delete():
 
     for _ in range(amnt):
         toDelete = input("Ingrese nombre de objeto a eliminar: ")
-        almacen.delet(toDelete)
+        amntToDelete = int(input("Ingrese la cantidad a eliminar: "))
+        almacen.delet(toDelete, amntToDelete)
     guardarSesion("Default",almacen)
     print("Elemento eliminado")
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
@@ -158,7 +160,7 @@ def search():
     almacen=cargarSesion("Default")
     searched = 0
     while searched < amnt:
-        toSearch = input()
+        toSearch = input("Ingrese el elemento a buscar: ")
         elmt = almacen.search(toSearch)
         searched +=1
         if elmt != None:
@@ -167,54 +169,73 @@ def search():
     guardarSesion("Default", almacen)
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
-    if os.name == "posix":
-        os.system("clear")
-    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
-        os.system("cls")
-
-def massiveLoad():
-    if os.name == "posix":
-        os.system("clear")
-    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
-        os.system("cls")
-    amnt = int(input("Ingrese el numero de elementos a cargar: "))
+    _ = system('cls') 
+def searchToEdit():
+    amnt = int(input("Ingrese el numero de elementos a editar: "))
     almacen=cargarSesion("Default")
-    t0 = time()
-    for i in range(amnt):
-        x = randomword(6)
-        lista = [x,23,i,1,"12-02-12"]
-        almacen.add(lista)
+    edited = 0
+    while edited < amnt:
+        toSearch = input("Ingrese el nombre del elemento a editar: ")
+        elmt = almacen.search(toSearch)
+        edited +=1
+        if elmt != None:
+            printElement(elmt,almacen)
+            edit(elmt, almacen)
+        print()
+
     guardarSesion("Default", almacen)
-    tf = time()
-    print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
+    print("Elemento editado".center(os.get_terminal_size().columns))
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
     if os.name == "posix":
         os.system("clear")
     elif os.name == "ce" or os.name == "nt" or os.name == "dos":
         os.system("cls")
+def edit(elmt, almacen):
+    lista=[]
+    lista.append(input("Ingrese el nuevo nombre: "))
+    lista.append(float(input("Ingrese el nuevo precio: ")))
+    lista.append(int(input("Ingrese el nuevo codigo de barras: ")))
+    lista.append(int(input("Ingrese la nueva cantidad: ")))
+    lista.append(date.today())
+    almacen.edit(elmt, lista)
 
+def massiveLoad():
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
+    try:
+        amnt = int(input("Ingrese el numero de elementos a cargar: "))
+        almacen=cargarSesion("Default")
+        t0 = time()
+        for i in range(amnt):
+            x = randomword(6)
+            lista = [x,23,i,1,"12-02-12"]
+            almacen.add(lista)
+        guardarSesion("Default", almacen)
+        tf = time()
+        print("El tiempo para añadir ", amnt, " elementos fue de: ", tf - t0,"s" )
+        print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
+    except:
+        print("comando invalido, presione enter para regresar al menú")
+    _ = input()
+    if os.name == "posix":
+        os.system("clear")
+    elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+        os.system("cls")
 
 def massiveDelete():
-    amnt = int(input("Ingrese el numero de elementos a eliminar: "))
-    almacen=cargarSesion("Default")
-    for i in range(amnt):
-        x = randomword(6)
-        lista = [x,23,i,1,"03-08-1917"]
-        almacen.add(lista)
-    
-    deleted = 0
-    
-    jisho=list(almacen.getDict().keys())
+    almacen = cargarSesion("Default")
+    print("eliminando todos los elementos un por uno")
     t0 = time()
-
-    while deleted < amnt:
-        almacen.delet(jisho[deleted])
-        deleted +=1
+    n = almacen.size
+    for i in range(n):
+        almacen.data[i] = 0
+    almacen.size = 0
     guardarSesion("Default", almacen)
     tf = time()
-
-    print("El tiempo para eliminar ", amnt, " elementos fue de: ", tf - t0,"s" )
+    print("El tiempo para eliminar todos elementos fue de: ", tf - t0,"s" )
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
     if os.name == "posix":
@@ -223,26 +244,26 @@ def massiveDelete():
         os.system("cls")
 
 def masiveSearch():
-    amnt = int(input("Ingrese el numero de elementos a buscar: "))
-    almacen=cargarSesion("Default")
-    for i in range(amnt):
-        x = randomword(6)
-        lista = [x,23,i,1,"03-08-1917"]
-        almacen.add(lista)
-    guardarSesion("Default", almacen)
-    searched = 0
+    almacen = cargarSesion("Default")
+    print("Pueden buscar un maximo de:", almacen.size, "elementos.")
+    try:
+        amnt = int(input("Buscar: "))
+        t0 = time()
+        lista = list(almacen.dictNames.keys())
+        temp = 0
+        if amnt <= almacen.size:
+            while temp < amnt:
+                almacen.search(lista[temp])
+                temp += 1
 
-    jisho=list(almacen.getDict().keys())
-    t0 = time()
-    while searched < amnt:
-        almacen.search(jisho[searched])
-        searched +=1
-    guardarSesion("Default", almacen)
-    tf = time()
-    guardarSesion("Default", almacen)
-
-    print("El tiempo para buscar ", amnt, " elementos fue de: ", tf - t0,"s" )
-    print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
+            tf = time()
+            print("El tiempo para buscar ", amnt, " elementos fue de: ", tf - t0,"s" )
+            print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
+        else:
+            print("No se puede buscar esta cantidad de elementos")
+        _ = input()
+    except:
+        print("comando invalido, presione enter para regresar al menú")
     _ = input()
     if os.name == "posix":
         os.system("clear")
@@ -256,11 +277,9 @@ def loadDataAuto():
         os.system("cls")
     almacen = cargarSesion("Default")
     t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
-
-    jisho=almacen.getDict()
-    for x in jisho:
-        if almacen.data[int(jisho.get(x))] != 0:
-            t.add_row(almacen.data[int(jisho.get(x))])
+    for x in almacen.dictNames:
+        if almacen.data[int(almacen.dictNames.get(x))] != 0:
+            t.add_row(almacen.data[int(almacen.dictNames.get(x))])
     print(t)
     print("Presione enter para regresar el menu".center(os.get_terminal_size().columns))
     _ = input()
@@ -289,9 +308,8 @@ def printElement(index, almacen):
 def showSort():
     almacen = cargarSesion("Default")
     t = PrettyTable(['Nombre', 'Precio', 'Codigo de barras', 'Cantidad', 'Fecha de agregado'])
-    jisho=almacen.getDict()
     for x in almacen.bSort():
-        t.add_row(almacen.data[int(jisho.get(x))])
+        t.add_row(almacen.data[int(almacen.dictNames.get(x))])
     print(t)
 
 

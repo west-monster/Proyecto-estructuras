@@ -14,7 +14,7 @@ class almacenamiento:
         self.dictNames = {}
         self.freeSpace = linkedQueue()
 
-    def add(self, dataList):
+    def add(self,dataList):
         if self.size == self.capacity:
             self.capacity *= 2
             newdata = np.zeros((self.capacity,),dtype=object)
@@ -45,29 +45,26 @@ class almacenamiento:
 
     def search(self,name):
       if name in self.dictNames.keys():
-        for i in range(self.size):
-          y = self.data[i]
-          if y != 0:
-            if y[0] == name:
-              return i
+        i = self.dictNames.get(name)
+        return i
       else:
         print("No se encontró el item")
 
     def searcher(self,name):
       print(self.data[self.search(name)])
 
-    def delet(self,name):
+    def delet(self,name,amount = -1):
       if name in self.dictNames.keys():
         for i in range(self.size):
           y = self.data[i]
           if y != 0:
-              if y[0] == name:
-                if y[3] == 1:
-                  self.data[i] = 0
-                  self.freeSpace.inqueue(i)
-                  self.dictNames.pop(name)
-                else:
-                  y[3] -= 1
+            if y[0] == name:
+              if y[3] == 1 or amount == -1 or y[3] <= amount:
+                self.data[i] = 0
+                self.freeSpace.inqueue(i)
+                self.dictNames.pop(name)
+              else:
+                y[3] -= amount
               break
       else:
         print("No se encontró el item")
@@ -82,6 +79,9 @@ class almacenamiento:
             ans[j]=ans[j+1]
             ans[j+1]=temp
       return ans
+    def edit(self, index, list):
+      self.dictNames[list[0]] = self.dictNames.pop(self.data[index][0])
+      self.data[index] = list
 
     def getDict(self):
       return self.dictNames
@@ -112,7 +112,7 @@ class linkedQueue:
     return self.head==None
 
   def dequeue(self):
-    if empty():
+    if self.empty():
       raise Exception("empty queue")
     else:
       ans=self.head.data
