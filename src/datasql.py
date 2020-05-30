@@ -65,8 +65,17 @@ def get_all():
     cursor = data.cursor()
     cursor.execute('SELECT * FROM productos')
     filas = cursor.fetchall()
-    for fila in filas:
-        pass
+    temp = []
+    with open('data.json', 'w') as file:
+        for lista in filas:
+            str = { "nombre": lista[1],
+                    "precio": lista[2],
+                    "codigo": lista[3],
+                    "cantidad": lista[4],
+                    "fecha": lista[5]}
+            temp.append(str)
+        json.dump(temp,file,indent=4)
+
 
 
 def delet(dell):
@@ -94,6 +103,11 @@ def all_col(columna):
         temp.append(i[0])
     return np.array(temp)
 
+def json_Conv(lista):
+    json_string = "{nombre:lista[1] , precio:lista[2] , codigo:lista[3], cantidad: lista[4] , fecha: lista[5]}"
+    with open('data.json', 'w') as file:
+        file.write(json_string)
+
 
 #retornar numpy array
 # 1- introducir el nombre de las columna
@@ -106,6 +120,11 @@ Ejemplo
     print(array) 
     print(type(array)) -> numpy.array 
 """
+
+#Para el frontend
+#1- ejecutar get_all()
+
+
 
 
 

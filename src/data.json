@@ -1,0 +1,30 @@
+[
+    {
+        "nombre": "pez",
+        "precio": 20.0,
+        "codigo": 30,
+        "cantidad": 1,
+        "fecha": "2020-05-29"
+    },
+    {
+        "nombre": "abc",
+        "precio": 20.0,
+        "codigo": 210,
+        "cantidad": 1,
+        "fecha": "2020-05-29"
+    },
+    {
+        "nombre": "dfg",
+        "precio": 20.0,
+        "codigo": 203,
+        "cantidad": 1,
+        "fecha": "2020-05-29"
+    },
+    {
+        "nombre": "ingreso_solidario",
+        "precio": 20.0,
+        "codigo": 20,
+        "cantidad": 1,
+        "fecha": "2020-05-29"
+    }
+]
