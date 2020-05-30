@@ -1,0 +1,12 @@
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 names">
+                Developed by:
+                <br>
+                <a *ngFor="let name of names; let i = index" [href]="'mailto:' + mails[i]">{{name}}</a>
+
+            </div>
+        </div>
+    </div>
+</footer>
