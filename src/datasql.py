@@ -68,10 +68,11 @@ def get_all():
     temp = []
     with open('data.json', 'w') as file:
         for lista in filas:
-            str = { "nombre": lista[1],
-                    "precio": lista[2],
-                    "codigo": lista[3],
-                    "cantidad": lista[4],
+            str = {"ID": lista[0],
+                   "nombre": lista[1],
+                   "precio": lista[2],
+                   "codigo": lista[3],
+                   "cantidad": lista[4],
                     "fecha": lista[5]}
             temp.append(str)
         json.dump(temp,file,indent=4)
