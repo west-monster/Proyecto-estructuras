@@ -99,11 +99,14 @@ def all_col(columna):
 # 1- introducir el nombre de las columna
 # 2- Nombres: "Nombre", "precio", "codigo", "cantidad", "fecha"
 # 3- respetar mayusculas y minusculas de los nombres de las columnas
-#ej:
 
-array = all_col("Nombre")
-print(array)
-print(type(array))
+""" 
+Ejemplo 
+    array = all_col("Nombre")
+    print(array) 
+    print(type(array)) -> numpy.array 
+"""
+
 
 
 
