@@ -1,0 +1,68 @@
+/*This belonged to footer's style*/
+
+.main {
+    min-height: calc(100vh - 10px);
+}
+
+
+/*This belonged to pages' general styles*/
+
+html {
+    overflow-x: hidden;
+    margin-right: calc(100% - 100vw);
+    min-height: 100%;
+}
+
+body {
+    background-color: #ffffff;
+    font-weight: 500;
+    min-height: 100%;
+    margin: 0px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: #444444;
+}
+
+.bubble {
+    min-width: 90%;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+
+/*Button*/
+
+.btn-primary {
+    color: #ffffff;
+    background-color: #446CD4;
+    border-color: #446CD4;
+}
+
+.btn-primary:hover {
+    background-color: #2852C1;
+    border-color: #2852C1;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active {
+    background-color: #446CD4;
+    border-color: #446CD4;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(40, 82, 193, .25);
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(40, 82, 193, .25);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle,
+.btn-primary:disabled {
+    background-color: #446CD4;
+    border-color: #446CD4;
+}
