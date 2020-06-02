@@ -35,6 +35,8 @@ def insert(a, b, c, d):
     else:
         print("el item ya existe")
 
+
+
 def search(buscando):
     cursor = data.cursor()
     sentence = "SELECT * FROM productos WHERE Nombre LIKE ?;"

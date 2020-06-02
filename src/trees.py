@@ -1,6 +1,7 @@
 import numpy as np
 import string
 import random
+
 def moveDown(array,parent,size):
   child=2*parent+1
   temp=array[parent]
@@ -38,11 +39,16 @@ class treeNode(object):
     self.ht=0
     
 class avlTree(object):
-  """docstring for avlTree"""
-  def __init__(self):
+  """dtype:
+  string:'<U40'
+  entero:'int64'
+  flotante:'float64'
+  """
+  def __init__(self,dtype):
     self.root=None
     self.size=0
     self.array=None
+    self.dtype=dtype
     
   def BF(self,root):      
     if root.right==None:
@@ -205,7 +211,7 @@ class avlTree(object):
 
 
   def printTree(self):
-    self.array= np.zeros(self.size,dtype='<U40')
+    self.array= np.zeros(self.size,dtype=self.dtype)
     self.cont=0
     self.__printTree(self.root)
     return self.array
@@ -214,10 +220,10 @@ def randomword(length):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(length))
 
-a=avlTree()
+"""a=avlTree('int64')
 f=[]
-for x in range(100):
-  tem=randomword(4)
+for x in range(1000000):
+  tem=random.randint(0,10000)
   a.insert(tem)
   if x%2==0:
     f.append(tem)
@@ -225,5 +231,5 @@ for x in range(100):
 for y in f:
   a.delete(y)
 
-print(a.printTree())
+print(a.printTree())"""
   
