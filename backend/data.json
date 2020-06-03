@@ -1,5 +1,6 @@
 [
     {
+        "ID": 1,
         "nombre": "pez",
         "precio": 20.0,
         "codigo": 30,
@@ -7,6 +8,7 @@
         "fecha": "2020-05-29"
     },
     {
+        "ID": 2,
         "nombre": "abc",
         "precio": 20.0,
         "codigo": 210,
@@ -14,6 +16,7 @@
         "fecha": "2020-05-29"
     },
     {
+        "ID": 3,
         "nombre": "dfg",
         "precio": 20.0,
         "codigo": 203,
@@ -21,6 +24,7 @@
         "fecha": "2020-05-29"
     },
     {
+        "ID": 4,
         "nombre": "ingreso_solidario",
         "precio": 20.0,
         "codigo": 20,

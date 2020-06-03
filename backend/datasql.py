@@ -121,9 +121,7 @@ Ejemplo
     print(array) 
     print(type(array)) -> numpy.array 
 """
-
-#Para el frontend
-#1- ejecutar get_all()
+get_all()
 
 
 
