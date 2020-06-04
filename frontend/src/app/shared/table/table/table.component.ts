@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { DataTable } from '../../../Interfaces/intefaces';
+import { DataTable, QueryData } from '../../../Interfaces/intefaces';
 import { EditService } from '../../../edit/edit/edit.service';
+import { ConnectionService } from '../../../services/connection.service';
 declare var $: any;
 @Component({
   selector: 'app-table',
@@ -9,20 +10,23 @@ declare var $: any;
 })
 export class TableComponent implements OnInit{
 
-  @Input() data: DataTable[];
+  public data: DataTable[];
+  public totalResults: number;
+  @Input() queryTarget: string;
   @Input() actionFlag: boolean;
   public selecterSaver: number[];
   public firstId: number;
   public keys: string[];
-  public currentData: DataTable[];
   public showAllF: boolean;
   public limit: number;
   public totalPages: number;
   public currentPage: number;
 
-  constructor(public shareAux: EditService) {
+  constructor(public shareAux: EditService, private conn: ConnectionService) {
     this.actionFlag = false;
+    this.totalResults = 0;
     this.selecterSaver = [];
+    this.data = [];
     this.firstId = 0;
     this.keys = ['nombre', 'precio', 'codigoBarras', 'cantidad', 'fecha'];
     this.showAllF = false;
@@ -32,6 +36,7 @@ export class TableComponent implements OnInit{
   ngOnInit(): void {
     this.setPages(25);
   }
+
   addSelected(index: number){
     const pos = this.selecterSaver.indexOf(index);
     if (pos === -1){
@@ -47,11 +52,11 @@ export class TableComponent implements OnInit{
 
   showAll(){
     this.showAllF = !this.showAllF;
-    this.showAllF ?  this.setPages(-1) : this.setPages(25);
+    this.showAllF ?  this.setPages(this.totalResults) : this.setPages(25);
     $('#modalLoadAll').modal('hide');
   }
   showModal(){
-    if (this.limit !== -1){
+    if (this.limit !== this.totalResults){
       $('#modalLoadAll').modal();
     } else{
       this.showAll();
@@ -64,11 +69,20 @@ export class TableComponent implements OnInit{
       this.totalPages = 0;
       this.currentPage =  0;
     } else {
-      this.totalPages = Math.round(this.data.length / this.limit) - 1;
+      this.totalPages = Math.round(this.totalResults / this.limit) - 1;
       this.currentPage = Math.floor((this.currentPage * aux  + 1) / this.limit);
     }
     this.firstId = this.currentPage * this.limit;
-    this.movePage();
+    this.setData();
+  }
+  setData(){
+    // this.firstId should be this.data[-1].id (last id of the last element)
+    this.conn.setPage(this.queryTarget, this.firstId, this.limit).subscribe((ans: QueryData) => {
+      this.data = ans.data;
+      this.totalResults = ans.totalResults;
+      this.totalPages = Math.round(this.totalResults / this.limit) - 1;
+      this.firstId = this.currentPage * this.limit;
+    });
   }
   setLimit(value?: Event){
     // tslint:disable-next-line:no-string-literal
@@ -88,7 +102,8 @@ export class TableComponent implements OnInit{
     } else if (action === -2 && this.currentPage > 0) {
       this.currentPage = 0;
     }
-    this.currentData = this.data.slice(this.currentPage * this.limit, (this.currentPage + 1) * this.limit);
+    this.firstId = this.currentPage * this.limit;
+    this.setData();
   }
 
 }

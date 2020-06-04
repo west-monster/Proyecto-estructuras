@@ -6,3 +6,7 @@ export interface DataTable {
   cantidad: number;
   fecha: string;
 } 
+export interface QueryData {
+  data: DataTable[];
+  totalResults: number;
+} 
