@@ -40,7 +40,7 @@ class almacen():
 		else:
 			toSort=all_col(column)
 			
-			return trees.heapSort(toSort,self.tree.size,info)
+			return trees.heapSort(toSort,self.tree.size)
 		
 
 a=almacen()

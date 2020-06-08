@@ -31,7 +31,7 @@ def heapSort(array,size):
     array[0],array[i]=array[i],array[0]
     
     moveDown(array,0,i)
-  return arrayID
+  return array
 
 class treeNode(object):
   """docstring for treeNode"""
