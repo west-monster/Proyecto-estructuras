@@ -2,33 +2,36 @@ import numpy as np
 import string
 import random
 
-def moveDown(array,parent,size):
+def moveDown(array,parent,size,arrayID):
   child=2*parent+1
   temp=array[parent]
-  
+  temp1=arrayID[parent]
   while child<size:
     Max=array[child]
-
+    Max1=arrayID[child]
     if child+1<size and array[child+1]>Max:
       child+=1
       Max=array[child]
-
+      Max1=arrayID[child]
     if Max>temp:
       array[parent]=Max
+      arrayID[parent]=Max1
       parent=child
     else:
       break
     child=2*parent+1
 
   array[parent]=temp
+  arrayID[parent]=temp1
 
-def heapSort(array,size):
+def heapSort(array,size,arrayID):
   for i in range(size//2-1,-1,-1):
-    moveDown(array,i,size)
+    moveDown(array,i,size,arrayID)
   for i in range(size-1,0,-1):
     array[0],array[i]=array[i],array[0]
-    moveDown(array,0,i)
-
+    arrayID[0],arrayID[i]=arrayID[i],arrayID[0]
+    moveDown(array,0,i,arrayID)
+  return arrayID
 
 class treeNode(object):
   """docstring for treeNode"""
@@ -142,9 +145,12 @@ class avlTree(object):
     return current
 
   def delete(self,val):
-    self.root=self.__delete(val,self.root)
-    self.size-=1
-
+    try:
+      self.root=self.__delete(val,self.root)
+      self.size-=1
+      return True
+    except:
+      return False
   def __delete(self,val,root):
     if root==None:
       return root
@@ -197,7 +203,7 @@ class avlTree(object):
     
       elif val>current.val:
         current.right=current
-    return True
+    return current.val
 
   def __printTree(self,root):
     if root!=None:

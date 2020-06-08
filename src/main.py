@@ -6,21 +6,43 @@ from time import time
 from datetime import date
 import sys
 import trees
-
+import json
+import numpy as np
 
 if __name__ == '__main__':
     Tabla()
 
 
-def loadTree():
-	tree=avlTree('<U40')
-	array=all_col("Nombre")
-	for x in array:
-		tree.insert(x)
+    
+class almacen():
+	"""docstring for almacen"""
+	def __init__(self):
+		info=all_col('nombre')
+		self.tree=trees.avlTree('<U40')
+		for x in info:
+			self.tree.insert(x)
 
-	return tree
 
-def sortBy(column):
-	array=all_col(column)
-	sort=trees.heapSort(array)
+	def deleteInf(self,name):
+		if self.tree.delete(name):
+			delet(name)
+			return True
+		return False
 
+	def search(self,name):
+		return self.tree.search(name)
+
+	def sortBy(self,column):
+		if column=="nombre":
+			return self.tree.printTree()
+		elif column=="fecha":
+			return None
+		else:
+			toSort=all_col(column)
+			
+			return trees.heapSort(toSort,self.tree.size,info)
+		
+
+a=almacen()
+
+print(a.sortBy("ID"))
