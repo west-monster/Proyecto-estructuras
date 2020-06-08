@@ -5,6 +5,9 @@ from datasql import *
 CORS(app)
 @app.route('/showall')
 def hello_world():
-    return getAll(0,25);
+    getAll(0,1)
+    return
+
+
 
     
