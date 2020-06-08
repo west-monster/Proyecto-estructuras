@@ -8,8 +8,6 @@ No lo haga hermano, no sabe el camello que es tener que es instalar Angular, el 
 
 pip install numpy
 
-pip install prettytable
-
 ```
 
 ## Ejecución
