@@ -1,0 +1,9 @@
+<div class="container bubble" style="text-align: center;">
+    <form [formGroup]="searchP" novalidate="novalidate">
+        <h3 class="formloghead">Ingrese elemento a {{ text }}</h3>
+        <input type="text" id="elemetp" class="form-control" placeholder="Buscar" autofocus formControlName="elm">
+        <br>
+        <button class="btn btn-primary btn" (click)="submit()">Buscar</button>
+    </form>
+</div>
+<app-table [actionFlag]="actionFlag"></app-table>
