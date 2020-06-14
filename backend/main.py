@@ -34,15 +34,27 @@ class almacen():
 
 	def sortBy(self,column):
 		if column=="nombre":
-			return self.tree.printTree()
+			Sorted= self.tree.printTree()
 		elif column=="fecha":
 			return None
 		else:
 			toSort=all_col(column)
-			
-			return trees.heapSort(toSort,self.tree.size)
-		
+			names=all_col('nombre')
+			Sorted=trees.heapSort(toSort,self.tree.size,names)
+		temp=[]
+		with open('jorg_'+column[0].lower()+'.json', 'w') as file:
+			for i in Sorted:
+				producto=getRaw(i)[0]
+
+				obj={"ID":producto[0],"nombre":producto[1],"precio":producto[2],"codigo":producto[3],"cantidad": producto[4],"fecha": producto[5]}
+				temp.append(obj)
+			json.dump(temp,file,indent=4)
 
 a=almacen()
 
-print(a.sortBy("ID"))
+#for x in range(10000):
+#	insert(randomword(4),3.36,4,5)
+
+a.sortBy("Nombre")
+
+	

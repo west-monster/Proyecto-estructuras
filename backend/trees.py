@@ -2,36 +2,39 @@ import numpy as np
 import string
 import random
 
-def moveDown(array,parent,size):
+def moveDown(array,parent,size,arrayID):
   child=2*parent+1
   temp=array[parent]
-  
+  temp2=arrayID[parent]
+
   while child<size:
     Max=array[child]
-    
+    Max2=arrayID[child]
     if child+1<size and array[child+1]>Max:
       child+=1
       Max=array[child]
+      Max2=arrayID[child]
       
     if Max>temp:
       array[parent]=Max
-      
+      arrayID[parent]=Max2
       parent=child
     else:
       break
     child=2*parent+1
 
   array[parent]=temp
+  arrayID[parent]=temp2
   
 
-def heapSort(array,size):
+def heapSort(array,size,arrayID):
   for i in range(size//2-1,-1,-1):
-    moveDown(array,i,size)
+    moveDown(array,i,size,arrayID)
   for i in range(size-1,0,-1):
     array[0],array[i]=array[i],array[0]
-    
-    moveDown(array,0,i)
-  return array
+    arrayID[0],arrayID[i]=arrayID[i],arrayID[0]
+    moveDown(array,0,i,arrayID)
+  return arrayID
 
 class treeNode(object):
   """docstring for treeNode"""
@@ -209,7 +212,6 @@ class avlTree(object):
     if root!=None:
       if root.left !=None:
         self.__printTree(root.left)
-      print(root.val)
       self.array[self.cont]=root.val
       self.cont+=1
       if root.right !=None:
@@ -238,4 +240,6 @@ for y in f:
   a.delete(y)
 
 print(a.printTree())"""
-  
+
+
+    
