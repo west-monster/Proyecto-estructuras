@@ -78,21 +78,24 @@ def get_all():
                     "fecha": lista[5]}
             temp.append(str)
         json.dump(temp,file,indent=4)
+
 def getAll(last, limit):
     data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
-    cursor.execute('SELECT * FROM productos WHERE ID > ? LIMIT ?;',  [last , limit])
+    cursor.execute('SELECT * FROM productos WHERE ID > ? LIMIT ?;', (last, limit))
     filas = cursor.fetchall()
-    temp = []
-    for lista in filas:
-        str = {"ID": lista[0],
-            "nombre": lista[1],
-            "precio": lista[2],
-            "codigo": lista[3],
-            "cantidad": lista[4],
-            "fecha": lista[5]}
-    temp.append(str)
-    return json.dumps(temp)
+    temp2 = []
+    with open('jall.json', 'w') as file:
+        for lista in filas:
+            str = {"ID": lista[0],
+                   "nombre": lista[1],
+                   "precio": lista[2],
+                   "codigo": lista[3],
+                   "cantidad": lista[4],
+                    "fecha": lista[5]}
+            temp2.append(str)
+        json.dump(temp2,file,indent=4)
+
 
 
 def delet(dell):

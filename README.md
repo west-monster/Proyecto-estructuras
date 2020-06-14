@@ -2,14 +2,11 @@
 
 ## Instalación
 
-Use el administrador de paquetes [pip](https://pip.pypa.io/en/stable/) para instalar [numpy](https://numpy.org/#) y [prettytable](https://github.com/jazzband/prettytable).
-
+No lo haga hermano, no sabe el camello que es tener que es instalar Angular, el sitio web estára pronto :)
 
 ```bash
 
 pip install numpy
-
-pip install prettytable
 
 ```
 
