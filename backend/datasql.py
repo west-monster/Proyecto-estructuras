@@ -10,6 +10,7 @@ data = sqlite3.connect('tablas.db')
 
 
 def Tabla():
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute(
         """CREATE TABLE IF NOT EXISTS productos(
@@ -24,20 +25,22 @@ def Tabla():
 
 # a = string, b = float, c = int, d = int  (la fecha se pone automaticamente)
 def insert(a, b, c, d):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
-    """name =  (a,)
+    name =  (a,)
     cursor.execute('SELECT Nombre FROM productos')
     items = cursor.fetchall()
-    if name not in items:"""
-    entities = (a, b, c, d, datetime.date.today())
-    cursor.execute('''INSERT INTO productos(Nombre, precio, codigo, cantidad, fecha) VALUES(?, ?, ?, ?, ?)''', entities)
-    data.commit()
-    """else:
-        print("el item ya existe")"""
+    if name not in items:
+        entities = (a, b, c, d, datetime.date.today())
+        cursor.execute('''INSERT INTO productos(Nombre, precio, codigo, cantidad, fecha) VALUES(?, ?, ?, ?, ?)''', entities)
+        data.commit()
+    else:
+        print("el item ya existe")
 
 
 
 def search(buscando):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     sentence = "SELECT * FROM productos WHERE Nombre LIKE ?;"
     cursor.execute(sentence, ["%{}%".format(buscando)])
@@ -50,6 +53,7 @@ def search(buscando):
         return result_list
 
 def searchID(ID):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     sentence = "SELECT * FROM productos WHERE ID LIKE ?;"
     cursor.execute(sentence, ["%{}%".format(ID)])
@@ -64,28 +68,12 @@ def searchID(ID):
         print("No se encuentra")
 
 def get_all():
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute('SELECT * FROM productos')
     filas = cursor.fetchall()
     temp = []
-    #return filas
-    for lista in filas:
-        str = {"ID": lista[0],
-               "nombre": lista[1],
-               "precio": lista[2],
-               "codigo": lista[3],
-               "cantidad": lista[4],
-                "fecha": lista[5]}
-        temp.append(str)
-    return temp
-
-def getAll(last, limit):
-    data = sqlite3.connect('tablas.db')
-    cursor = data.cursor()
-    cursor.execute('SELECT * FROM productos WHERE ID > ? LIMIT ?;', (last, limit))
-    filas = cursor.fetchall()
-    temp2 = []
-    with open('jall.json', 'w') as file:
+    with open('data.json', 'w') as file:
         for lista in filas:
             str = {"ID": lista[0],
                    "nombre": lista[1],
@@ -93,12 +81,11 @@ def getAll(last, limit):
                    "codigo": lista[3],
                    "cantidad": lista[4],
                     "fecha": lista[5]}
-            temp2.append(str)
-        json.dump(temp2,file,indent=4)
-
-
+            temp.append(str)
+        json.dump(temp,file,indent=4)
 
 def delet(dell):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute('''DELETE FROM productos WHERE Nombre = ?''', (dell,))
     print("ok")
@@ -106,6 +93,7 @@ def delet(dell):
 
 
 def edit_c(nombre,cantidad):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute('''UPDATE productos SET cantidad = ? WHERE Nombre = ? ''', (cantidad, nombre))
     data.commit()
@@ -113,6 +101,7 @@ def edit_c(nombre,cantidad):
 
 #esta función retorna un Nympy array
 def all_col(columna):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     sentence = 'SELECT {} FROM productos'.format(columna)
     print(sentence)
@@ -124,11 +113,13 @@ def all_col(columna):
     return np.array(temp)
 
 def json_Conv(lista):
+    data = sqlite3.connect('tablas.db')
     json_string = "{nombre:lista[1] , precio:lista[2] , codigo:lista[3], cantidad: lista[4] , fecha: lista[5]}"
     with open('data.json', 'w') as file:
         file.write(json_string)
 
 def getRaw(Nombre):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute('''SELECT * FROM productos WHERE Nombre = ? ''', ( Nombre,))
     return cursor.fetchall()
@@ -143,4 +134,59 @@ Ejemplo
     print(array) 
     print(type(array)) -> numpy.array 
 """
-#print(get_all())
+#Api functions
+def getAllAPI(last, limit):
+    data = sqlite3.connect('tablas.db')
+    cursor = data.cursor()
+    cursor.execute('SELECT * FROM productos WHERE ID > ? LIMIT ?;', (last, limit))
+    filas = cursor.fetchall()
+    temp2 = []
+    for lista in filas:
+        str = {"ID": lista[0],
+               "nombre": lista[1],
+               "precio": lista[2],
+               "codigo": lista[3],
+               "cantidad": lista[4],
+                "fecha": lista[5]}
+        temp2.append(str)
+
+    return json.dumps(temp2)
+def searchAPI(target):
+    data = sqlite3.connect('tablas.db')
+    cursor = data.cursor()
+    sentence = "SELECT * FROM productos WHERE Nombre LIKE ?;"
+    cursor.execute(sentence, ["%{}%".format(target)])
+    result = cursor.fetchall()
+    result_list = []
+    for lista in result:
+        str = {"ID": lista[0],
+            "nombre": lista[1],
+            "precio": lista[2],
+            "codigo": lista[3],
+            "cantidad": lista[4],
+            "fecha": lista[5]}
+        result_list.append(str)
+    return json.dumps(result_list)
+def deleteAPI(dell):
+    data = sqlite3.connect('tablas.db')
+    cursor = data.cursor()
+    cursor.execute('''DELETE FROM productos WHERE ID = ?''', (dell,))
+    data.commit()
+def deleteAllAPI():
+    data = sqlite3.connect('tablas.db')
+    cursor = data.cursor()
+    cursor.execute('DELETE FROM productos')
+    data.commit()
+def editAPI(values):
+    cursor = data.cursor()
+    cursor.execute('''UPDATE productos SET nombre = ?, precio = ?, codigo = ?, cantidad = ?, fecha = ? WHERE ID = ? ''',
+    (values['nombre'], values['precio'], values['codigo'], values['cantidad'], values['fecha'], values['ID']))
+    data.commit()
+
+
+
+
+
+
+
+
