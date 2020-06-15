@@ -83,6 +83,8 @@ class almacenamiento:
       self.dictNames[list[0]] = self.dictNames.pop(self.data[index][0])
       self.data[index] = list
 
+    def getDict(self):
+      return self.dictNames
 
 def randomword(length):
     letters = string.ascii_lowercase
