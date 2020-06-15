@@ -10,6 +10,7 @@ data = sqlite3.connect('tablas.db')
 
 
 def Tabla():
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute(
         """CREATE TABLE IF NOT EXISTS productos(
@@ -24,6 +25,7 @@ def Tabla():
 
 # a = string, b = float, c = int, d = int  (la fecha se pone automaticamente)
 def insert(a, b, c, d):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     name =  (a,)
     cursor.execute('SELECT Nombre FROM productos')
@@ -38,6 +40,7 @@ def insert(a, b, c, d):
 
 
 def search(buscando):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     sentence = "SELECT * FROM productos WHERE Nombre LIKE ?;"
     cursor.execute(sentence, ["%{}%".format(buscando)])
@@ -50,6 +53,7 @@ def search(buscando):
         return result_list
 
 def searchID(ID):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     sentence = "SELECT * FROM productos WHERE ID LIKE ?;"
     cursor.execute(sentence, ["%{}%".format(ID)])
@@ -64,6 +68,7 @@ def searchID(ID):
         print("No se encuentra")
 
 def get_all():
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute('SELECT * FROM productos')
     filas = cursor.fetchall()
@@ -99,6 +104,7 @@ def getAll(last, limit):
 
 
 def delet(dell):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute('''DELETE FROM productos WHERE Nombre = ?''', (dell,))
     print("ok")
@@ -106,6 +112,7 @@ def delet(dell):
 
 
 def edit_c(nombre,cantidad):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute('''UPDATE productos SET cantidad = ? WHERE Nombre = ? ''', (cantidad, nombre))
     data.commit()
@@ -113,6 +120,7 @@ def edit_c(nombre,cantidad):
 
 #esta función retorna un Nympy array
 def all_col(columna):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     sentence = 'SELECT {} FROM productos'.format(columna)
     print(sentence)
@@ -124,11 +132,13 @@ def all_col(columna):
     return np.array(temp)
 
 def json_Conv(lista):
+    data = sqlite3.connect('tablas.db')
     json_string = "{nombre:lista[1] , precio:lista[2] , codigo:lista[3], cantidad: lista[4] , fecha: lista[5]}"
     with open('data.json', 'w') as file:
         file.write(json_string)
 
 def getRaw(Nombre):
+    data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute('''SELECT * FROM productos WHERE Nombre = ? ''', ( Nombre,))
     return cursor.fetchall()
