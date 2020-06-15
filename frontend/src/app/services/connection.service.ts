@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import elms from './data.json';
-import { DataTable, QueryData } from '../Interfaces/intefaces';
+import { map, catchError } from 'rxjs/operators';
+import { DataTable } from '../Interfaces/intefaces';
 
 @Injectable({
   providedIn: 'root'
@@ -18,66 +19,25 @@ export class ConnectionService {
     console.log(error);
     return throwError('Error! something went wrong. >:v');
   }
-  sort(target: string): Observable<QueryData>{
-    let aux = {
-      data: [],
-      totalResults: 0
-    };
-    aux.data = elms;
-    aux.totalResults = elms.length;
-    let aux2 = new Observable<QueryData>((observer) => {
-
-      // Simple geolocation API check provides values to publish
-      observer.next(aux);
-
-      // When the consumer unsubscribes, clean up data ready for next subscription.
-      return {
-        unsubscribe() {
-        }
-      };
-    });
-    return aux2;
+  seeAll(first: number, last: number){
+    return this.http.get(this.baseUrl + `seeAll?first=${first}&last=${last}`)
+    .pipe( catchError(this.handleError));
   }
 
-  setArrows(target: string, limit: number): Observable<QueryData>{
-    let aux = {
-      data: [],
-      totalResults: 0
-    };
-    aux.data = elms;
-    aux.totalResults = elms.length;
-    let aux2 = new Observable<QueryData>((observer) => {
-
-      // Simple geolocation API check provides values to publish
-      observer.next(aux);
-
-      // When the consumer unsubscribes, clean up data ready for next subscription.
-      return {
-        unsubscribe() {
-        }
-      };
-    });
-    return aux2;
+  search(target: string){
+    return this.http.get(this.baseUrl + `search?target=${target}`)
+    .pipe( catchError(this.handleError));
   }
-  setPage(target: string, first: number, limit: number): Observable<QueryData>{
-    console.log('Select * From table WHERE id > ' + first + ' limit ' + limit);
-    let aux = {
-      data: [],
-      totalResults: 0
-    };
-    aux.data = elms.slice(first, first + limit);
-    aux.totalResults = elms.length;
-    let aux2 = new Observable<QueryData>((observer) => {
-
-      // Simple geolocation API check provides values to publish
-      observer.next(aux);
-
-      // When the consumer unsubscribes, clean up data ready for next subscription.
-      return {
-        unsubscribe() {
-        }
-      };
-    });
-    return aux2;
+  delete(targets: number[]){
+    return this.http.post(this.baseUrl + 'delete', { targets})
+    .pipe( catchError(this.handleError));
+  }
+  deleteAll(){
+    return this.http.delete(this.baseUrl + 'deleteAll')
+    .pipe( catchError(this.handleError));
+  }
+  edit(target: any){
+    return this.http.post(this.baseUrl + 'edit', target)
+    .pipe( catchError(this.handleError));
   }
 }

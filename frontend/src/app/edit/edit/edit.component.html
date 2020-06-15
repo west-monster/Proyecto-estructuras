@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="submit()">Editar</button>
+                <button type="button" class="btn btn-primary" (click)="submit()" [disabled]="!valid">Editar</button>
             </div>
         </div>
     </div>

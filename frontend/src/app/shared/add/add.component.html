@@ -7,14 +7,15 @@
         <div *ngIf="edit.get('precio').dirty && edit.get('precio').errors?.pattern" class="alertForm">
             Solo caracteres numericos.
         </div>
-        <input type="text" id="cod" class="form-control" placeholder="Codigo de barras*" formControlName="codigoBarras">
-        <div *ngIf="edit.get('codigoBarras').dirty && edit.get('codigoBarras').errors?.pattern" class="alertForm">
+        <input type="text" id="cod" class="form-control" placeholder="Codigo de barras*" formControlName="codigo">
+        <div *ngIf="edit.get('codigo').dirty && edit.get('codigo').errors?.pattern" class="alertForm">
             Solo caracteres numericos.
         </div>
         <input type="text" id="amnt" class="form-control" placeholder="Cantidad*" formControlName="cantidad">
         <div *ngIf="edit.get('cantidad').dirty && edit.get('cantidad').errors?.pattern" class="alertForm">
             Solo caracteres numericos.
         </div>
+        <br>
         <input type="date" formControlName="fecha">
     </form>
 </div>

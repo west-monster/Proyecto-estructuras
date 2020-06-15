@@ -3,7 +3,7 @@
         <h3 class="formloghead">Ingrese elemento a {{ text }}</h3>
         <input type="text" id="elemetp" class="form-control" placeholder="Buscar" autofocus formControlName="elm">
         <br>
-        <button class="btn btn-primary btn" (click)="submit()">Buscar</button>
+        <button class="btn btn-primary btn" (click)="submit()" [disabled]="!searchP.valid">Buscar</button>
     </form>
 </div>
 <app-table [actionFlag]="actionFlag"></app-table>
