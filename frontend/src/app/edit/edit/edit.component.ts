@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { SearchComponent } from '../../shared/search/search/search.component';
 import { DataTable } from '../../Interfaces/intefaces';
 import { EditService } from './edit.service';
@@ -6,21 +6,24 @@ import { Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { AddComponent } from '../../shared/add/add.component';
+import { ConnectionService } from '../../services/connection.service';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent implements OnDestroy {
+export class EditComponent implements OnDestroy, AfterViewInit {
 
 
   @ViewChild(SearchComponent) searcher;
   @ViewChild(AddComponent) adder;
   private subscription: Subscription;
   private idEdit: number;
-  constructor(public shareAux: EditService) {
+  private loadChild: boolean;
+  constructor(public shareAux: EditService, private conn: ConnectionService) {
     this.idEdit = null;
+    this.loadChild = false;
     this.subscription = this.shareAux.triggerEdit$.subscribe(
       id => {
         console.log(id);
@@ -29,8 +32,8 @@ export class EditComponent implements OnDestroy {
   }
 
   load(id: number){
-    this.adder.edit.reset(this.searcher.data[id]);
-    const date: Date = new Date(this.searcher.data[id].fecha);
+    this.adder.edit.reset(this.searcher.table.data[id]);
+    const date: Date = new Date(this.searcher.table.data[id].fecha);
     this.adder.edit.get('fecha').setValue(formatDate(date, 'yyyy-MM-dd', 'en'));
     this.idEdit = id;
   }
@@ -38,6 +41,17 @@ export class EditComponent implements OnDestroy {
     const aux = this.adder.edit.value;
     aux.id = this.idEdit;
     console.log(aux);
+    this.conn.edit(aux).subscribe((ans: boolean) => {
+      this.searcher.submit();
+    });
+  }
+
+  get valid(){
+    return this.loadChild ? this.adder.edit.valid : false;
+  }
+
+  ngAfterViewInit(){
+    this.loadChild = true;
   }
 
   ngOnDestroy() {

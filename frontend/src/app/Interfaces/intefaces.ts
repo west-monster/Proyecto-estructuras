@@ -1,12 +1,8 @@
 export interface DataTable {
-  id?: number;
+  ID?: number;
   nombre: string;
   precio: number;
-  codigoBarras: number;
+  codigo: number;
   cantidad: number;
   fecha: string;
-} 
-export interface QueryData {
-  data: DataTable[];
-  totalResults: number;
 } 

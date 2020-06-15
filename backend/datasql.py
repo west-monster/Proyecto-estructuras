@@ -77,25 +77,6 @@ def get_all():
             temp.append(str)
         json.dump(temp,file,indent=4)
 
-def getAll(last, limit):
-    data = sqlite3.connect('tablas.db')
-    cursor = data.cursor()
-    cursor.execute('SELECT * FROM productos WHERE ID > ? LIMIT ?;', (last, limit))
-    filas = cursor.fetchall()
-    temp2 = []
-    with open('jall.json', 'w') as file:
-        for lista in filas:
-            str = {"ID": lista[0],
-                   "nombre": lista[1],
-                   "precio": lista[2],
-                   "codigo": lista[3],
-                   "cantidad": lista[4],
-                    "fecha": lista[5]}
-            temp2.append(str)
-        json.dump(temp2,file,indent=4)
-
-
-
 def delet(dell):
     cursor = data.cursor()
     cursor.execute('''DELETE FROM productos WHERE Nombre = ?''', (dell,))
@@ -138,10 +119,54 @@ Ejemplo
     print(array) 
     print(type(array)) -> numpy.array 
 """
+#Api functions
+def getAllAPI(last, limit):
+    data = sqlite3.connect('tablas.db')
+    cursor = data.cursor()
+    cursor.execute('SELECT * FROM productos WHERE ID > ? LIMIT ?;', (last, limit))
+    filas = cursor.fetchall()
+    temp2 = []
+    for lista in filas:
+        str = {"ID": lista[0],
+               "nombre": lista[1],
+               "precio": lista[2],
+               "codigo": lista[3],
+               "cantidad": lista[4],
+                "fecha": lista[5]}
+        temp2.append(str)
 
-
-
-
+    return json.dumps(temp2)
+def searchAPI(target):
+    data = sqlite3.connect('tablas.db')
+    cursor = data.cursor()
+    sentence = "SELECT * FROM productos WHERE Nombre LIKE ?;"
+    cursor.execute(sentence, ["%{}%".format(target)])
+    result = cursor.fetchall()
+    result_list = []
+    for lista in result:
+        str = {"ID": lista[0],
+            "nombre": lista[1],
+            "precio": lista[2],
+            "codigo": lista[3],
+            "cantidad": lista[4],
+            "fecha": lista[5]}
+        result_list.append(str)
+    return json.dumps(result_list)
+def deleteAPI(dell):
+    data = sqlite3.connect('tablas.db')
+    cursor = data.cursor()
+    cursor.execute('''DELETE FROM productos WHERE ID = ?''', (dell,))
+    data.commit()
+def deleteAllAPI():
+    data = sqlite3.connect('tablas.db')
+    cursor = data.cursor()
+    cursor.execute('DELETE FROM productos')
+    data.commit()
+def editAPI(values):
+    cursor = data.cursor()
+    cursor.execute('''UPDATE productos SET nombre = ?, precio = ?, codigo = ?, cantidad = ?, fecha = ? WHERE ID = ? ''',
+    (values['nombre'], values['precio'], values['codigo'], values['cantidad'], values['fecha'], values['ID']))
+    data.commit()
 
 
 

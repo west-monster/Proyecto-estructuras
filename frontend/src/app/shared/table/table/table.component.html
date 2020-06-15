@@ -74,7 +74,7 @@
                             {{i + 1 + firstId}}
                         </div>
                         <div *ngSwitchCase="1">
-                                <button style="min-width: 53px"type="button" class="btn" data-toggle="modal" data-target="#modalAdd" (click)="triggerEdit(item.id);">
+                                <button style="min-width: 53px"type="button" class="btn" data-toggle="modal" data-target="#modalAdd" (click)="triggerEdit(i);">
                                     <b style="margin: 10px
                                     ;">{{i + 1 + firstId}}</b> <i class="fas fa-edit"></i>
                         </button>
