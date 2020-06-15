@@ -27,15 +27,16 @@ def Tabla():
 def insert(a, b, c, d):
     data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
-    name =  (a,)
+    """name =  (a,)
     cursor.execute('SELECT Nombre FROM productos')
     items = cursor.fetchall()
-    if name not in items:
-        entities = (a, b, c, d, datetime.date.today())
-        cursor.execute('''INSERT INTO productos(Nombre, precio, codigo, cantidad, fecha) VALUES(?, ?, ?, ?, ?)''', entities)
-        data.commit()
-    else:
-        print("el item ya existe")
+    if name not in items:"""
+    entities = (a, b, c, d, datetime.date.today())
+    cursor.execute('''INSERT INTO productos(Nombre, precio, codigo, cantidad, fecha) VALUES(?, ?, ?, ?, ?)''', entities)
+    data.commit()
+    """else:
+        print("el item ya existe")"""
+
 
 
 
