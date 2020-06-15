@@ -116,6 +116,7 @@ class avlTree(object):
     
     elif val>root.val:
       root.right=self.__insert(val,root.right)
+
     
     self.actualH(root)
     bf=self.BF(root)
@@ -196,17 +197,17 @@ class avlTree(object):
 
     return root        
 
-  def search(root,val):
+  def search(self,root,val):
     current=root
-    while val!=current.val:
+    while current!=None and val!=current.val:
       if current.ht==0:
         return False
       if val<current.val:
-        current.left=current   
+        current=current.left
     
       elif val>current.val:
-        current.right=current
-    return current.val
+        current=current.right
+    return current
 
   def __printTree(self,root):
     if root!=None:

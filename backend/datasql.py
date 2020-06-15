@@ -25,15 +25,15 @@ def Tabla():
 # a = string, b = float, c = int, d = int  (la fecha se pone automaticamente)
 def insert(a, b, c, d):
     cursor = data.cursor()
-    name =  (a,)
+    """name =  (a,)
     cursor.execute('SELECT Nombre FROM productos')
     items = cursor.fetchall()
-    if name not in items:
-        entities = (a, b, c, d, datetime.date.today())
-        cursor.execute('''INSERT INTO productos(Nombre, precio, codigo, cantidad, fecha) VALUES(?, ?, ?, ?, ?)''', entities)
-        data.commit()
-    else:
-        print("el item ya existe")
+    if name not in items:"""
+    entities = (a, b, c, d, datetime.date.today())
+    cursor.execute('''INSERT INTO productos(Nombre, precio, codigo, cantidad, fecha) VALUES(?, ?, ?, ?, ?)''', entities)
+    data.commit()
+    """else:
+        print("el item ya existe")"""
 
 
 
@@ -68,16 +68,16 @@ def get_all():
     cursor.execute('SELECT * FROM productos')
     filas = cursor.fetchall()
     temp = []
-    with open('data.json', 'w') as file:
-        for lista in filas:
-            str = {"ID": lista[0],
-                   "nombre": lista[1],
-                   "precio": lista[2],
-                   "codigo": lista[3],
-                   "cantidad": lista[4],
-                    "fecha": lista[5]}
-            temp.append(str)
-        json.dump(temp,file,indent=4)
+    #return filas
+    for lista in filas:
+        str = {"ID": lista[0],
+               "nombre": lista[1],
+               "precio": lista[2],
+               "codigo": lista[3],
+               "cantidad": lista[4],
+                "fecha": lista[5]}
+        temp.append(str)
+    return temp
 
 def getAll(last, limit):
     data = sqlite3.connect('tablas.db')
@@ -143,15 +143,4 @@ Ejemplo
     print(array) 
     print(type(array)) -> numpy.array 
 """
-
-
-
-
-
-
-
-
-
-
-
-
+#print(get_all())
