@@ -35,6 +35,8 @@ def insert(a, b, c, d):
     else:
         print("el item ya existe")
 
+
+
 def search(buscando):
     cursor = data.cursor()
     sentence = "SELECT * FROM productos WHERE Nombre LIKE ?;"
@@ -126,7 +128,10 @@ def json_Conv(lista):
     with open('data.json', 'w') as file:
         file.write(json_string)
 
-
+def getRaw(Nombre):
+    cursor = data.cursor()
+    cursor.execute('''SELECT * FROM productos WHERE Nombre = ? ''', ( Nombre,))
+    return cursor.fetchall()
 #retornar numpy array
 # 1- introducir el nombre de las columna
 # 2- Nombres: "Nombre", "precio", "codigo", "cantidad", "fecha"
