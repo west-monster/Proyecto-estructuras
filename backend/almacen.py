@@ -8,10 +8,11 @@ from os import path
 class almacen():
 	"""docstring for almacen"""
 	def __init__(self):
-		self.tree=trees.avlTree('<U40')
 
+		self.tree=trees.avlTree('<U40')
 		if not path.exists('tree.json'):
-			open('tree.json','w')
+			a=open('tree.json','w')
+			a.close
 			info=all_col('Nombre')
 			for x in info:
 				self.tree.insert(x)
@@ -65,7 +66,10 @@ class almacen():
 		return False
 
 	def search(self,name):
-		return self.tree.search(self.tree.root,name)
+		nombre= self.tree.search(self.tree.root,name)
+		print(nombre)
+		if nombre:
+			return getRaw(nombre.val)
 
 	def sortBy(self,column):
 		if column=="fecha":
@@ -76,9 +80,11 @@ class almacen():
 			Sorted=trees.heapSort(toSort,self.tree.size,index)
 			print(Sorted)
 		data=get_all()
+		print(data)
 		temp=[]
 		with open('jorg_'+column[0].lower()+'.json', 'w') as file:
 			for i in Sorted:
+				print(i)
 				producto=data[i]
 				temp.append(producto)
 			json.dump(temp,file,indent=4)
@@ -92,5 +98,5 @@ class almacen():
 
 
 a=almacen()
+a.addInf("perro",2345,2543,3241)
 a.sortBy("Nombre")
-	
