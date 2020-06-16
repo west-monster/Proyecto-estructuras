@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { DataTable, QueryData } from '../../../Interfaces/intefaces';
+import { DataTable } from '../../../Interfaces/intefaces';
 import { EditService } from '../../../edit/edit/edit.service';
 import { ConnectionService } from '../../../services/connection.service';
+import { last } from 'rxjs/operators';
 declare var $: any;
 @Component({
   selector: 'app-table',
@@ -14,7 +15,8 @@ export class TableComponent implements OnInit{
   public totalResults: number;
   @Input() queryTarget: string;
   @Input() actionFlag: boolean;
-  public selecterSaver: number[];
+  public typeOrder: number;
+  public selecterSaver: string[];
   public firstId: number;
   public keys: string[];
   public showAllF: boolean;
@@ -24,23 +26,27 @@ export class TableComponent implements OnInit{
 
   constructor(public shareAux: EditService, private conn: ConnectionService) {
     this.actionFlag = false;
+    this.typeOrder = 0;
     this.totalResults = 0;
     this.selecterSaver = [];
     this.data = [];
     this.firstId = 0;
-    this.keys = ['nombre', 'precio', 'codigoBarras', 'cantidad', 'fecha'];
+    this.keys = ['nombre', 'precio', 'codigo', 'cantidad', 'fecha'];
     this.showAllF = false;
     this.currentPage = 0;
     this.limit = 0;
   }
   ngOnInit(): void {
-    this.setPages(25);
+    if (this.queryTarget === 'seeAll') {
+      this.setPages(25);
+      this.setData();
+    }
   }
 
   addSelected(index: number){
-    const pos = this.selecterSaver.indexOf(index);
+    const pos = this.selecterSaver.indexOf(this.data[index].nombre);
     if (pos === -1){
-       this.selecterSaver.push(index);
+       this.selecterSaver.push(this.data[index].nombre);
     } else if (pos !== -1){
       this.selecterSaver.splice(pos, 1);
     }
@@ -53,6 +59,7 @@ export class TableComponent implements OnInit{
   showAll(){
     this.showAllF = !this.showAllF;
     this.showAllF ?  this.setPages(this.totalResults) : this.setPages(25);
+    this.setData();
     $('#modalLoadAll').modal('hide');
   }
   showModal(){
@@ -69,20 +76,30 @@ export class TableComponent implements OnInit{
       this.totalPages = 0;
       this.currentPage =  0;
     } else {
-      this.totalPages = Math.round(this.totalResults / this.limit) - 1;
+      this.totalPages = Math.round(this.totalResults / this.limit);
       this.currentPage = Math.floor((this.currentPage * aux  + 1) / this.limit);
     }
     this.firstId = this.currentPage * this.limit;
-    this.setData();
   }
   setData(){
     // this.firstId should be this.data[-1].id (last id of the last element)
-    this.conn.setPage(this.queryTarget, this.firstId, this.limit).subscribe((ans: QueryData) => {
-      this.data = ans.data;
-      this.totalResults = ans.totalResults;
-      this.totalPages = Math.round(this.totalResults / this.limit) - 1;
-      this.firstId = this.currentPage * this.limit;
-    });
+
+        this.conn.seeAll(this.firstId, this.limit).subscribe((ans: DataTable[]) => {
+          this.data = ans;
+          this.totalResults = ans.length;
+          this.totalPages = Math.round(this.totalResults / this.limit);
+          this.firstId = this.currentPage * this.limit;
+        });
+
+
+  }
+  setDataL(ans: DataTable[]){
+    this.setPages(25);
+    this.data = ans;
+    this.data = ans;
+    this.totalResults = ans.length;
+    this.totalPages = Math.round(this.totalResults / this.limit);
+    this.firstId = this.currentPage * this.limit;
   }
   setLimit(value?: Event){
     // tslint:disable-next-line:no-string-literal
@@ -90,7 +107,24 @@ export class TableComponent implements OnInit{
       this.showAllF = false;
       // tslint:disable-next-line:no-string-literal
       this.setPages(value.target['value']);
+      this.setData();
     }
+  }
+  setTypeOrder(value?: Event){
+    // tslint:disable-next-line:no-string-literal
+    if (value.target['value'] !== '-1' && value.target['value'] !== 'fecha' ) {
+      // tslint:disable-next-line:no-string-literal
+      this.conn.sort(value.target['value'], this.firstId, this.firstId + this.limit).subscribe((ans: DataTable[]) => {
+        this.data = ans;
+        this.totalResults = ans.length;
+        this.totalPages = Math.round(this.totalResults / this.limit);
+        this.firstId = this.currentPage * this.limit;
+      });
+    } else {
+      this.setPages(25);
+      this.setData();
+    }
+
   }
   movePage(action: number = 0){
     if (action === 1 && this.currentPage < this.totalPages) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 @Component({
@@ -8,21 +8,16 @@ import { formatDate } from '@angular/common';
 })
 export class AddComponent implements OnInit{
 
- 
-
   public edit: FormGroup;
 
   constructor() {
-
     this.edit = new FormGroup({
       nombre: new FormControl('', Validators.required),
-      precio: new FormControl('', Validators.pattern('^[0-9]*$')),
-      codigoBarras: new FormControl('', Validators.pattern('^[0-9]*$')),
-      cantidad: new FormControl('', Validators.pattern('^[0-9]*$')),
+      precio: new FormControl('', [Validators.pattern('^[0-9.,]*$'), Validators.required]),
+      codigo: new FormControl('', [Validators.pattern('^[0-9.,]*$'), Validators.required]),
+      cantidad: new FormControl('', [Validators.pattern('^[0-9.,]*$'), Validators.required]),
       fecha: new FormControl('', Validators.required),
     });
-
-
   }
   
   ngOnInit(): void {
@@ -30,7 +25,7 @@ export class AddComponent implements OnInit{
   }
 
   submit(){
-
+    
   }
 
 

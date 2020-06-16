@@ -2,6 +2,11 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <a class="navbar-brand" style="padding-bottom: 0px; padding-top: 0px; ">
+        <button type="button" class="btn btn-primary" style="padding-bottom: 0px; padding-top: 0px;" [disabled]="router.url != '/delete' && router.url != '/edit'"><i class="fas fa-arrow-circle-left"></i></button>
+        <button type="button" class="btn btn-primary" style="padding-bottom: 0px; padding-top: 0px;" [disabled]="router.url != '/delete' && router.url != '/edit'"><i class="fas fa-arrow-circle-right"></i></button>
+
+    </a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item">

@@ -22,7 +22,15 @@
     <div class="container bubble" style="text-align: center;">
         <div class="row">
             <div class="col-md-4">
-                <button type="button" class="btn btn-primary">Ordenar</button>
+
+                <select class="form-control" (change)="setTypeOrder($event)" style="max-width: 70%; display: inline-block;">
+                        <option value="-1">No ordenar</option>
+                        <option value="Nombre">Nombre</option>
+                        <option value="precio">Precio</option>
+                        <option value="codigo">Codigo de barras</option>
+                        <option value="cantidad">Cantidad</option>
+                        <option value="fecha">Fecha</option>
+                      </select>
             </div>
             <div class="col-md-4" style="margin-top: 8px;">
                 <div class="form-check">
@@ -74,7 +82,7 @@
                             {{i + 1 + firstId}}
                         </div>
                         <div *ngSwitchCase="1">
-                                <button style="min-width: 53px"type="button" class="btn" data-toggle="modal" data-target="#modalAdd" (click)="triggerEdit(item.id);">
+                                <button style="min-width: 53px"type="button" class="btn" data-toggle="modal" data-target="#modalAdd" (click)="triggerEdit(i);">
                                     <b style="margin: 10px
                                     ;">{{i + 1 + firstId}}</b> <i class="fas fa-edit"></i>
                         </button>

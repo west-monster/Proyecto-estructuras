@@ -27,15 +27,16 @@ def Tabla():
 def insert(a, b, c, d):
     data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
-    name =  (a,)
+    """name =  (a,)
     cursor.execute('SELECT Nombre FROM productos')
     items = cursor.fetchall()
-    if name not in items:
-        entities = (a, b, c, d, datetime.date.today())
-        cursor.execute('''INSERT INTO productos(Nombre, precio, codigo, cantidad, fecha) VALUES(?, ?, ?, ?, ?)''', entities)
-        data.commit()
-    else:
-        print("el item ya existe")
+    if name not in items:"""
+    entities = (a, b, c, d, datetime.date.today())
+    cursor.execute('''INSERT INTO productos(Nombre, precio, codigo, cantidad, fecha) VALUES(?, ?, ?, ?, ?)''', entities)
+    data.commit()
+    """else:
+        print("el item ya existe")"""
+
 
 
 
@@ -73,35 +74,16 @@ def get_all():
     cursor.execute('SELECT * FROM productos')
     filas = cursor.fetchall()
     temp = []
-    with open('data.json', 'w') as file:
-        for lista in filas:
-            str = {"ID": lista[0],
-                   "nombre": lista[1],
-                   "precio": lista[2],
-                   "codigo": lista[3],
-                   "cantidad": lista[4],
-                    "fecha": lista[5]}
-            temp.append(str)
-        json.dump(temp,file,indent=4)
-
-def getAll(last, limit):
-    data = sqlite3.connect('tablas.db')
-    cursor = data.cursor()
-    cursor.execute('SELECT * FROM productos WHERE ID > ? LIMIT ?;', (last, limit))
-    filas = cursor.fetchall()
-    temp2 = []
-    with open('jall.json', 'w') as file:
-        for lista in filas:
-            str = {"ID": lista[0],
-                   "nombre": lista[1],
-                   "precio": lista[2],
-                   "codigo": lista[3],
-                   "cantidad": lista[4],
-                    "fecha": lista[5]}
-            temp2.append(str)
-        json.dump(temp2,file,indent=4)
-
-
+    
+    for lista in filas:
+        str = {"ID": lista[0],
+               "nombre": lista[1],
+               "precio": lista[2],
+               "codigo": lista[3],
+               "cantidad": lista[4],
+                "fecha": lista[5]}
+        temp.append(str)
+    return temp
 
 def delet(dell):
     data = sqlite3.connect('tablas.db')
@@ -141,7 +123,9 @@ def getRaw(Nombre):
     data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute('''SELECT * FROM productos WHERE Nombre = ? ''', ( Nombre,))
-    return cursor.fetchall()
+    lista=cursor.fetchall()[0]
+    dic = {"ID": lista[0],"nombre": lista[1],"precio": lista[2],"codigo": lista[3],"cantidad": lista[4],"fecha": lista[5]}
+    return dic
 #retornar numpy array
 # 1- introducir el nombre de las columna
 # 2- Nombres: "Nombre", "precio", "codigo", "cantidad", "fecha"
@@ -153,10 +137,30 @@ Ejemplo
     print(array) 
     print(type(array)) -> numpy.array 
 """
+#Api functions
+def getAllAPI(last, limit):
+    data = sqlite3.connect('tablas.db')
+    cursor = data.cursor()
+    cursor.execute('SELECT * FROM productos WHERE ID > ? LIMIT ?;', (last, limit))
+    filas = cursor.fetchall()
+    temp2 = []
+    for lista in filas:
+        str = {"ID": lista[0],
+               "nombre": lista[1],
+               "precio": lista[2],
+               "codigo": lista[3],
+               "cantidad": lista[4],
+                "fecha": lista[5]}
+        temp2.append(str)
 
+    return json.dumps(temp2)
 
-
-
+def editAPI(values):
+    data = sqlite3.connect('tablas.db')
+    cursor = data.cursor()
+    cursor.execute('UPDATE productos SET precio = ?, codigo = ?, cantidad = ?, fecha = ? WHERE Id = ?',
+    (values['precio'], values['codigo'], values['cantidad'], values['fecha'], values['id']))
+    data.commit()
 
 
 

@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angu
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataTable } from '../../../Interfaces/intefaces';
 import { TableComponent } from '../../table/table/table.component';
+import { ConnectionService } from '../../../services/connection.service';
 
 @Component({
   selector: 'app-search',
@@ -14,17 +15,17 @@ export class SearchComponent implements OnInit {
   @Input() text: string;
   @Input() actionFlag: number;
   public searchP: FormGroup;
-  public data: DataTable[];
-  constructor() {
-    this.data = [{"id":0,"nombre":"varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla","precio":77,"codigoBarras":86,"cantidad":65,"fecha":"5/1/2020"},
-  ];
+  constructor(private conn: ConnectionService) {
     this.searchP = new FormGroup({
       elm: new FormControl('', Validators.required)
     });
    }
 
   submit(){
-    console.log('data search');
+    this.conn.search(this.searchP.get('elm').value).subscribe((ans: DataTable[]) => {
+      this.table.setDataL(ans);
+      console.log(ans);
+    });
   }
   sendSelected(): number[]{
     return this.table.selecterSaver;

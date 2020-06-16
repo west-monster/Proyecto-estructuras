@@ -3,6 +3,7 @@
 ## Instalación
 
 No lo haga hermano, no sabe el camello que es tener que es instalar Angular, el sitio web estára pronto :)
+Hagalo compa, con bolivar con manuel con GitHub al poder <3
 
 ```bash
 
