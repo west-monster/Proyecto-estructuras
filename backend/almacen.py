@@ -5,6 +5,7 @@ import json
 import numpy as np
 from os import remove
 from os import path
+import main
 class almacen():
 	"""docstring for almacen"""
 	def __init__(self):
