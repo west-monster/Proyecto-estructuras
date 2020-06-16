@@ -38,11 +38,13 @@ export class EditComponent implements OnDestroy, AfterViewInit {
     this.idEdit = id;
   }
   submit(){
+    this.adder.edit.get('nombre').enable();
     const aux = this.adder.edit.value;
     aux.id = this.idEdit;
     console.log(aux);
     this.conn.edit(aux).subscribe((ans: boolean) => {
       this.searcher.submit();
+      this.adder.edit.get('nombre').disabled();
     });
   }
 
@@ -52,6 +54,7 @@ export class EditComponent implements OnDestroy, AfterViewInit {
 
   ngAfterViewInit(){
     this.loadChild = true;
+    this.adder.edit.get('nombre').disable();
   }
 
   ngOnDestroy() {
