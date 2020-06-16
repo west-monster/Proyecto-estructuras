@@ -14,6 +14,7 @@ export class TableComponent implements OnInit{
   public totalResults: number;
   @Input() queryTarget: string;
   @Input() actionFlag: boolean;
+  public typeOrder: number;
   public selecterSaver: number[];
   public firstId: number;
   public keys: string[];
@@ -24,6 +25,7 @@ export class TableComponent implements OnInit{
 
   constructor(public shareAux: EditService, private conn: ConnectionService) {
     this.actionFlag = false;
+    this.typeOrder = 0;
     this.totalResults = 0;
     this.selecterSaver = [];
     this.data = [];
@@ -106,6 +108,11 @@ export class TableComponent implements OnInit{
       this.setPages(value.target['value']);
       this.setData();
     }
+  }
+  setTypeOrder(value?: Event){
+    // tslint:disable-next-line:no-string-literal
+    this.typeOrder = value.target['value']; console.log(value.target['value']);
+
   }
   movePage(action: number = 0){
     if (action === 1 && this.currentPage < this.totalPages) {
