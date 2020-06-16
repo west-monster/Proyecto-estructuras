@@ -97,6 +97,10 @@ class almacen():
 			insert(Nombre, precio, codigo, cantidad)
 			self.tree.insert(Nombre)
 			self.toJson()
+			return True
+		else:
+			return False
 
 
 
+a=almacen()
