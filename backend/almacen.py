@@ -105,7 +105,3 @@ class almacen():
 			return True
 		else:
 			return False
-
-
-a=almacen()
-a.addInf("m",2354,432,243)
