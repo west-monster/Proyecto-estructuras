@@ -29,7 +29,10 @@ class almacen():
 		self.tree.root=self.__fromJson(jsonData)
 
 	def __fromJson(self,json):
-		root=trees.treeNode(json["val"])
+		if json==None:
+			return None
+		else:
+			root=trees.treeNode(json["val"])
 		if json["left"] != None:
 			root.left=self.__fromJson(json["left"])
 		if json["right"] != None:
@@ -102,5 +105,5 @@ class almacen():
 			return False
 
 
-
 a=almacen()
+a.addInf("m",2354,432,243)
