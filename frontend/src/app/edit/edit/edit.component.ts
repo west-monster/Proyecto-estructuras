@@ -40,11 +40,12 @@ export class EditComponent implements OnDestroy, AfterViewInit {
   submit(){
     this.adder.edit.get('nombre').enable();
     const aux = this.adder.edit.value;
-    aux.id = this.idEdit;
+    aux.id = this.searcher.table.data[this.idEdit].ID;
     console.log(aux);
     this.conn.edit(aux).subscribe((ans: boolean) => {
       this.searcher.submit();
-      this.adder.edit.get('nombre').disabled();
+      console.log(33);
+      this.adder.edit.get('nombre').disable();
     });
   }
 

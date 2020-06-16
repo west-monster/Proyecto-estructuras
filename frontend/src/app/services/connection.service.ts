@@ -36,12 +36,16 @@ export class ConnectionService {
     return this.http.delete(this.baseUrl + 'deleteAll')
     .pipe( catchError(this.handleError));
   }
-  edit(target: any){
-    return this.http.post(this.baseUrl + 'edit', target)
+  edit(elm: any){
+    return this.http.post(this.baseUrl + 'edit', {elm})
     .pipe( catchError(this.handleError));
   }
   add(elm: DataTable){
     return this.http.post(this.baseUrl + 'add', {elm})
+    .pipe( catchError(this.handleError));
+  }
+  sort(type: string, fist: number, last: number){
+    return this.http.get(this.baseUrl + `sort?type=${type}&fisrt=${fist}&last=${last}`)
     .pipe( catchError(this.handleError));
   }
 }

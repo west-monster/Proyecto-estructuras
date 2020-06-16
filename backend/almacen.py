@@ -58,7 +58,10 @@ class almacen():
 	def deletInf(self):
 		self.tree=trees.avlTree('<U40')
 		self.toJson()
-		remove("tablas.db")
+		data = sqlite3.connect('tablas.db')
+		cursor = data.cursor()
+		cursor.execute('DELETE FROM productos')
+		data.commit()
 		Tabla()
 
 
@@ -76,7 +79,7 @@ class almacen():
 		else:
 			return None
 
-	def sortBy(self,column):
+	def sortBy(self,column, first, last):
 		if column=="fecha":
 			return None
 		else:
@@ -87,12 +90,11 @@ class almacen():
 		data=get_all()
 		print(data)
 		temp=[]
-		with open('jorg_'+column[0].lower()+'.json', 'w') as file:
-			for i in Sorted:
-				print(i)
-				producto=data[i]
-				temp.append(producto)
-			json.dump(temp,file,indent=4)
+		for i in Sorted[first:last]:
+			print(i)
+			producto=data[i]
+			temp.append(producto)
+		return temp
 
 	def addInf(self,Nombre, precio, codigo, cantidad):
 		if not self.search(Nombre):					#tener cuidado aqui

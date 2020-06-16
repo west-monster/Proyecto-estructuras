@@ -1,9 +1,25 @@
-<<<<<<< HEAD
-null
-=======
 {
-    "val": "m",
-    "left": null,
-    "right": null
+    "val": "b",
+    "left": {
+        "val": "a",
+        "left": null,
+        "right": {
+            "val": "al",
+            "left": null,
+            "right": null
+        }
+    },
+    "right": {
+        "val": "m",
+        "left": {
+            "val": "c",
+            "left": null,
+            "right": null
+        },
+        "right": {
+            "val": "z",
+            "left": null,
+            "right": null
+        }
+    }
 }
->>>>>>> 5552831e08a5a19022c7d5b5713bf33d133cc70f

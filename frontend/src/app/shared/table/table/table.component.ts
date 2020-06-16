@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { DataTable } from '../../../Interfaces/intefaces';
 import { EditService } from '../../../edit/edit/edit.service';
 import { ConnectionService } from '../../../services/connection.service';
+import { last } from 'rxjs/operators';
 declare var $: any;
 @Component({
   selector: 'app-table',
@@ -111,7 +112,18 @@ export class TableComponent implements OnInit{
   }
   setTypeOrder(value?: Event){
     // tslint:disable-next-line:no-string-literal
-    this.typeOrder = value.target['value']; console.log(value.target['value']);
+    if (value.target['value'] !== '-1' && value.target['value'] !== 'fecha' ) {
+      // tslint:disable-next-line:no-string-literal
+      this.conn.sort(value.target['value'], this.firstId, this.firstId + this.limit).subscribe((ans: DataTable[]) => {
+        this.data = ans;
+        this.totalResults = ans.length;
+        this.totalPages = Math.round(this.totalResults / this.limit);
+        this.firstId = this.currentPage * this.limit;
+      });
+    } else {
+      this.setPages(25);
+      this.setData();
+    }
 
   }
   movePage(action: number = 0){
