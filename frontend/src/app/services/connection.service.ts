@@ -40,4 +40,8 @@ export class ConnectionService {
     return this.http.post(this.baseUrl + 'edit', target)
     .pipe( catchError(this.handleError));
   }
+  add(elm: DataTable){
+    return this.http.post(this.baseUrl + 'add', {elm})
+    .pipe( catchError(this.handleError));
+  }
 }

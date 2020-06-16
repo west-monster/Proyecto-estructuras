@@ -15,7 +15,7 @@ export class TableComponent implements OnInit{
   @Input() queryTarget: string;
   @Input() actionFlag: boolean;
   public typeOrder: number;
-  public selecterSaver: number[];
+  public selecterSaver: string[];
   public firstId: number;
   public keys: string[];
   public showAllF: boolean;
@@ -43,9 +43,9 @@ export class TableComponent implements OnInit{
   }
 
   addSelected(index: number){
-    const pos = this.selecterSaver.indexOf(this.data[index].ID);
+    const pos = this.selecterSaver.indexOf(this.data[index].nombre);
     if (pos === -1){
-       this.selecterSaver.push(this.data[index].ID);
+       this.selecterSaver.push(this.data[index].nombre);
     } else if (pos !== -1){
       this.selecterSaver.splice(pos, 1);
     }
