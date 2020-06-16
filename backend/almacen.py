@@ -67,9 +67,10 @@ class almacen():
 
 	def search(self,name):
 		nombre= self.tree.search(self.tree.root,name)
-		print(nombre)
 		if nombre:
 			return getRaw(nombre.val)
+		else:
+			return None
 
 	def sortBy(self,column):
 		if column=="fecha":
@@ -97,6 +98,4 @@ class almacen():
 			self.toJson()
 
 
-a=almacen()
-a.addInf("perro",2345,2543,3241)
-a.sortBy("Nombre")
+
