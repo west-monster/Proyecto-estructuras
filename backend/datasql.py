@@ -74,16 +74,16 @@ def get_all():
     cursor.execute('SELECT * FROM productos')
     filas = cursor.fetchall()
     temp = []
-    with open('data.json', 'w') as file:
-        for lista in filas:
-            str = {"ID": lista[0],
-                   "nombre": lista[1],
-                   "precio": lista[2],
-                   "codigo": lista[3],
-                   "cantidad": lista[4],
-                    "fecha": lista[5]}
-            temp.append(str)
-        json.dump(temp,file,indent=4)
+    
+    for lista in filas:
+        str = {"ID": lista[0],
+               "nombre": lista[1],
+               "precio": lista[2],
+               "codigo": lista[3],
+               "cantidad": lista[4],
+                "fecha": lista[5]}
+        temp.append(str)
+    return temp
 
 def delet(dell):
     data = sqlite3.connect('tablas.db')
@@ -123,7 +123,9 @@ def getRaw(Nombre):
     data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     cursor.execute('''SELECT * FROM productos WHERE Nombre = ? ''', ( Nombre,))
-    return cursor.fetchall()
+    lista=cursor.fetchall()[0]
+    dic = {"ID": lista[0],"nombre": lista[1],"precio": lista[2],"codigo": lista[3],"cantidad": lista[4],"fecha": lista[5]}
+    return dic
 #retornar numpy array
 # 1- introducir el nombre de las columna
 # 2- Nombres: "Nombre", "precio", "codigo", "cantidad", "fecha"

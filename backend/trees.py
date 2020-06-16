@@ -201,7 +201,7 @@ class avlTree(object):
     current=root
     while current!=None and val!=current.val:
       if current.ht==0:
-        return False
+        return None
       if val<current.val:
         current=current.left
     

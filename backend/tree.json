@@ -23265,7 +23265,11 @@
                                                 "val": "pesm",
                                                 "left": {
                                                     "val": "pesi",
-                                                    "left": null,
+                                                    "left": {
+                                                        "val": "perro",
+                                                        "left": null,
+                                                        "right": null
+                                                    },
                                                     "right": null
                                                 },
                                                 "right": {
