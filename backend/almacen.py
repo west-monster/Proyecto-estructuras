@@ -1,17 +1,24 @@
-
+from structures import randomword
 from datasql import *
 import trees
 import json
 import numpy as np
-
+from os import remove
+from os import path
 class almacen():
 	"""docstring for almacen"""
 	def __init__(self):
-		#info=all_col('nombre')
 		self.tree=trees.avlTree('<U40')
-		#for x in info:
-		#	self.tree.insert(x)
-		self.fromJson()
+
+		if not path.exists('tree.json'):
+			open('tree.json','w')
+			info=all_col('Nombre')
+			for x in info:
+				self.tree.insert(x)
+			self.toJson()
+		else:
+			self.fromJson()
+
 
 	def fromJson(self):
 		with open('tree.json', 'r') as file:
@@ -26,8 +33,8 @@ class almacen():
 		if json["right"] != None:
 			root.right=self.__fromJson(json["right"])
 		self.tree.actualH(root)
+		self.tree.size+=1
 		return root
-		
 
 	def toJson(self):
 		self.json=self.__toJson(self.tree.root)
@@ -43,37 +50,47 @@ class almacen():
 				right=self.__toJson(root.right)
 			json={"val":root.val,"left":left,"right":right}
 			return json
+	def deletInf(self):
+		self.tree=trees.avlTree('<U40')
+		self.toJson()
+		remove("tablas.db")
+		Tabla()
+
 
 	def deleteInf(self,name):
 		if self.tree.delete(name):
 			delet(name)
+			self.toJson()
 			return True
 		return False
 
 	def search(self,name):
-		return self.tree.search(name)
+		return self.tree.search(self.tree.root,name)
 
 	def sortBy(self,column):
-		if column=="nombre":
-			Sorted= self.tree.printTree()
-		elif column=="fecha":
+		if column=="fecha":
 			return None
 		else:
 			toSort=all_col(column)
-			names=all_col('nombre')
-			Sorted=trees.heapSort(toSort,self.tree.size,names)
+			index=list(range(self.tree.size))
+			Sorted=trees.heapSort(toSort,self.tree.size,index)
+			print(Sorted)
+		data=get_all()
 		temp=[]
 		with open('jorg_'+column[0].lower()+'.json', 'w') as file:
 			for i in Sorted:
-				producto=getRaw(i)[0]
+				producto=data[i]
+				temp.append(producto)
+			json.dump(temp,file,indent=4)
 
-				obj={"ID":producto[0],"nombre":producto[1],"precio":producto[2],"codigo":producto[3],"cantidad": producto[4],"fecha": producto[5]}
-				temp.append(obj)
-			json.dump(Sorted,file,indent=4)
+	def addInf(self,Nombre, precio, codigo, cantidad):
+		if not self.search(Nombre):					#tener cuidado aqui
+			
+			insert(Nombre, precio, codigo, cantidad)
+			self.tree.insert(Nombre)
+			self.toJson()
 
-#for x in range(10000):
-#	insert(randomword(4),3.36,4,5)
 
-#a.sortBy("Nombre")
-
+a=almacen()
+a.sortBy("Nombre")
 	
