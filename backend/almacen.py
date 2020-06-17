@@ -105,3 +105,81 @@ class almacen():
 			return True
 		else:
 			return False
+
+
+a=almacen()
+
+
+class node:
+	def __init__(self, data=None):
+		self.data = data
+		self.next = None
+
+
+class linkedlist:
+	def __init__(self):
+		self.head = None
+		self.cantidad = 0
+
+	def add(self, newval):
+		newnode = node(newval)
+		if not self.head:
+			self.head = newnode
+			self.cantidad += 1
+			return
+		initnode = self.head
+		while initnode.next is not None:
+			initnode = initnode.next
+		initnode.next = newnode
+		self.cantidad += 1
+
+
+	def mostrar(self):
+		printval = self.head
+		while printval is not None:
+			print(printval.data)
+			printval = printval.next
+
+
+class stack:
+	def __init__(self):
+		self.lista2 = linkedlist()
+
+	def add2(self,value):
+		#acá se define la cantidad maxima de elementos que puede tener el stack.
+		if self.lista2.cantidad < 5:
+			self.lista2.add(value)
+		else:
+			self.lista2.head = self.lista2.head.next
+			self.lista2.add(value)
+
+	def unstack(self):
+		if self.lista2.head and self.lista2.cantidad != 0:
+			if self.lista2.head.data is not None:
+				a = self.lista2.head.data
+			if self.lista2.head.next is not None:
+				self.lista2.head = self.lista2.head.next
+				self.lista2.cantidad -= 1
+			else:
+				self.lista2.head = None
+				self.lista2.cantidad -= 1
+			return a
+		else:
+			return
+
+
+class queue():
+
+	def __init__(self):
+		self.pila1 = stack()
+		self.pila2 = stack()
+
+	def add3(self,newval):
+		self.pila1.add2(newval)
+		self.pila2.add2(self.pila1.unstack())
+
+	def desizing(self):
+		a = self.pila2.unstack()
+		return a
+
+n = queue
