@@ -15,6 +15,7 @@ import { SearchComponent } from './shared/search/search/search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EditComponent } from './edit/edit/edit.component';
 import { AdderComponent } from './adder/adder.component';
+import { ReversePipe } from './pipes/reverse.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AdderComponent } from './adder/adder.component';
     DeleteComponent,
     SearchComponent,
     EditComponent,
-    AdderComponent
+    AdderComponent,
+    ReversePipe
   ],
   imports: [
     BrowserModule,

@@ -76,7 +76,7 @@ def get_all():
     temp = []
     
     for lista in filas:
-        str = {"ID": lista[0],
+        str = {"id": lista[0],
                "nombre": lista[1],
                "precio": lista[2],
                "codigo": lista[3],
@@ -124,7 +124,7 @@ def getRaw(Nombre):
     cursor = data.cursor()
     cursor.execute('''SELECT * FROM productos WHERE Nombre = ? ''', ( Nombre,))
     lista=cursor.fetchall()[0]
-    dic = {"ID": lista[0],"nombre": lista[1],"precio": lista[2],"codigo": lista[3],"cantidad": lista[4],"fecha": lista[5]}
+    dic = {"id": lista[0],"nombre": lista[1],"precio": lista[2],"codigo": lista[3],"cantidad": lista[4],"fecha": lista[5]}
     return dic
 #retornar numpy array
 # 1- introducir el nombre de las columna
@@ -145,7 +145,7 @@ def getAllAPI(last, limit):
     filas = cursor.fetchall()
     temp2 = []
     for lista in filas:
-        str = {"ID": lista[0],
+        str = {"id": lista[0],
                "nombre": lista[1],
                "precio": lista[2],
                "codigo": lista[3],
@@ -158,8 +158,8 @@ def getAllAPI(last, limit):
 def editAPI(values):
     data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
-    cursor.execute('UPDATE productos SET precio = ?, codigo = ?, cantidad = ?, fecha = ? WHERE Id = ?',
-    (values['precio'], values['codigo'], values['cantidad'], values['fecha'], values['id']))
+    cursor.execute('UPDATE productos SET precio = ?, codigo = ?, cantidad = ?, fecha = ? WHERE Nombre = ?',
+    (values['precio'], values['codigo'], values['cantidad'], values['fecha'], values['nombre']))
     data.commit()
 
 

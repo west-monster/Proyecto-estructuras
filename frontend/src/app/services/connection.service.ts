@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
-import elms from './data.json';
 import { map, catchError } from 'rxjs/operators';
 import { DataTable } from '../Interfaces/intefaces';
 
@@ -28,7 +27,7 @@ export class ConnectionService {
     return this.http.get(this.baseUrl + `search?target=${target}`)
     .pipe( catchError(this.handleError));
   }
-  delete(targets: number[]){
+  delete(targets: string[]){
     return this.http.post(this.baseUrl + 'delete', { targets})
     .pipe( catchError(this.handleError));
   }
@@ -36,7 +35,7 @@ export class ConnectionService {
     return this.http.delete(this.baseUrl + 'deleteAll')
     .pipe( catchError(this.handleError));
   }
-  edit(elm: any){
+  edit(elm: DataTable){
     return this.http.post(this.baseUrl + 'edit', {elm})
     .pipe( catchError(this.handleError));
   }

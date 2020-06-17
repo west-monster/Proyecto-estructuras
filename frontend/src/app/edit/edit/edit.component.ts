@@ -7,7 +7,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { AddComponent } from '../../shared/add/add.component';
 import { ConnectionService } from '../../services/connection.service';
-
+import { UndoNoUndoService } from '../../services/undo-no-undo.service';
+declare var $: any;
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -21,7 +22,7 @@ export class EditComponent implements OnDestroy, AfterViewInit {
   private subscription: Subscription;
   private idEdit: number;
   private loadChild: boolean;
-  constructor(public shareAux: EditService, private conn: ConnectionService) {
+  constructor(public shareAux: EditService, private conn: ConnectionService, public history: UndoNoUndoService) {
     this.idEdit = null;
     this.loadChild = false;
     this.subscription = this.shareAux.triggerEdit$.subscribe(
@@ -40,12 +41,17 @@ export class EditComponent implements OnDestroy, AfterViewInit {
   submit(){
     this.adder.edit.get('nombre').enable();
     const aux = this.adder.edit.value;
-    aux.id = this.searcher.table.data[this.idEdit].ID;
+    aux.id = this.searcher.table.data[this.idEdit].id;
     console.log(aux);
     this.conn.edit(aux).subscribe((ans: boolean) => {
       this.searcher.submit();
-      console.log(33);
       this.adder.edit.get('nombre').disable();
+      this.history.addAction({
+        type: 0,
+        past: [this.searcher.table.data[this.idEdit]],
+        new: [aux]
+      });
+      $('#modalAdd').modal('hide');
     });
   }
 
