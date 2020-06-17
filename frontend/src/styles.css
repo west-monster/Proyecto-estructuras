@@ -74,3 +74,33 @@ body {
     margin-bottom: 3px;
     display: inline-block;
 }
+
+.historyB {
+    position: fixed;
+    bottom: 0;
+    min-height: 20px;
+    background-color: white;
+    border-top: 1px solid #BFBFBF;
+    min-width: 100%;
+    text-align: center;
+}
+
+.history {
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    border-top: 1px solid #BFBFBF;
+    min-width: 100%;
+    text-align: center;
+    z-index: 1;
+    -webkit-animation: grow 0.5s;
+    animation-fill-mode: forwards;
+    padding-bottom: 20px;
+    border-radius: 5px;
+}
+
+@-webkit-keyframes grow {
+    100% {
+        height: inherit
+    }
+}

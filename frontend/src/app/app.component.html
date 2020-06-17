@@ -3,5 +3,30 @@
     <div class="setcontent">
         <router-outlet></router-outlet>
     </div>
+    <div class="historyB" (click)="show()" *ngIf="!showF"><i class="fas fa-caret-up"></i></div>
+    <div class="history" *ngIf="showF">
+        <ng-container *ngIf="history.history.length > 0; else elseHis">
+            <h3>Ultimos movimientos</h3>
+        </ng-container>
+        <ng-template #elseHis>
+            <h3>No hay movimientos</h3>
+        </ng-template>
+
+        <div *ngFor="let elm of history.history | reverse" style="border-bottom: 1px solid #BFBFBF;">
+            <span [ngSwitch]="elm.type">
+                <div *ngSwitchCase="0">
+                    {{elm.nombre}} fue editado.
+                </div>
+                <div *ngSwitchCase="1">
+                    {{elm.nombre}} fue eliminado.
+                </div>
+                <div *ngSwitchCase="-1">
+                    {{elm.nombre}} fue restaurado.
+                </div>
+                </span>
+        </div>
+        <div class="historyB" (click)="show()"><i class="fas fa-caret-down"></i></div>
+    </div>
 </div>
+
 <app-footer></app-footer>
