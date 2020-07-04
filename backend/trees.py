@@ -140,6 +140,7 @@ class avlTree(object):
     
     return root
 
+
   
 
   def minVal(self,root):
@@ -243,4 +244,5 @@ for y in f:
 print(a.printTree())"""
 
 
-    
+
+

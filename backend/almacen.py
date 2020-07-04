@@ -109,7 +109,7 @@ class almacen():
 
 a=almacen()
 
-
+	
 class node:
 	def __init__(self, data=None):
 		self.data = data
@@ -119,20 +119,18 @@ class node:
 class linkedlist:
 	def __init__(self):
 		self.head = None
+		self.tail = None
 		self.cantidad = 0
 
-	def add(self, newval):
-		newnode = node(newval)
-		if not self.head:
-			self.head = newnode
-			self.cantidad += 1
-			return
-		initnode = self.head
-		while initnode.next is not None:
-			initnode = initnode.next
-		initnode.next = newnode
-		self.cantidad += 1
 
+	def add(self, newval):
+		new_node = node(newval)
+		if not self.head:
+			self.head=new_node
+		else:
+			self.tail.next=new_node
+		self.tail=new_node
+		self.cantidad += 1
 
 	def mostrar(self):
 		printval = self.head
@@ -141,7 +139,7 @@ class linkedlist:
 			printval = printval.next
 
 
-class stack:
+"""class stack:
 	def __init__(self):
 		self.lista2 = linkedlist()
 
@@ -165,7 +163,7 @@ class stack:
 				self.lista2.cantidad -= 1
 			return a
 		else:
-			return
+			return"""
 
 
 class queue():
@@ -182,4 +180,27 @@ class queue():
 		a = self.pila2.unstack()
 		return a
 
-n = queue
+
+class hashTable:
+	def __init__(self,size):
+		self.size=size
+		self.array=np.array([linkedlist() for i in range(size)])
+
+	def hashString(self,string):
+		sol=0
+		for char in string:
+			sol+=ord(char)
+		return (sol*15485863)%self.size
+
+	def __setitem__(self,key,value):
+		self.array[self.hashString(key)].add((key,value))
+
+	def __getitem__(self,key):
+		head=self.array[self.hashString(key)].head
+		while head:
+			if head.data[0]==key:
+				return head.data[1]
+			head=head.next
+		return None
+
+

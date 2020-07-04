@@ -1,5 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 backend/tablas.db
+backend/tree.json
 backend/__pycache__/
 backend/venv/
 # compiled output
