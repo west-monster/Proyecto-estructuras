@@ -15,3 +15,11 @@ export interface History{
   type: number;
   nombre: string;
 }
+export interface Recomendations{
+  description: string;
+  score: number;
+}
+export interface QueryRecomendations{
+  query: boolean;
+  ans: Recomendations;
+}

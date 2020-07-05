@@ -1,7 +1,7 @@
+#!/usr/bin/env python
 import os, io
 from google.cloud import vision
 from google.cloud.vision import types 
-import pandas as pd
 import json
 
 def identify(file_path):    
@@ -19,13 +19,19 @@ def identify(file_path):
     l = []
     for label in labels:
         l.append(dict(description=label.description, score = label.score))
-    
+    print(l)
     with open('IA.json', 'w') as file:
         json.dump(l, file)
 
 
 if __name__ == "__main__":
-    file_name = '/Users/west_mon/Desktop/pru/ja.jpg'
+    if os.path.isfile(r"C:\xampp\htdocs\e2\backend\img.jpg"):
+        file_name = r"C:\xampp\htdocs\e2\backend\img.jpg"
+    if os.path.isfile(r"C:\xampp\htdocs\e2\backend\img.png"):
+        file_name = r"C:\xampp\htdocs\e2\backend\img.png"
+    if os.path.isfile(r"C:\xampp\htdocs\e2\backend\img.jpeg"):
+        file_name = r"C:\xampp\htdocs\e2\backend\img.jpeg"
+    
     identify(file_name)
 
 
