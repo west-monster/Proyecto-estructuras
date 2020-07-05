@@ -47,4 +47,10 @@ export class ConnectionService {
     return this.http.get(this.baseUrl + `sort?type=${type}&fisrt=${fist}&last=${last}`)
     .pipe( catchError(this.handleError));
   }
+  detecteItem(value: any) {
+    return this.http.post('http://localhost/e2/backend/detecte.php', value, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe( catchError(this.handleError));
+  }
 }
