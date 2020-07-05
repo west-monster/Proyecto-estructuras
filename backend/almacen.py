@@ -184,23 +184,32 @@ class queue():
 class hashTable:
 	def __init__(self,size):
 		self.size=size
-		self.array=np.array([linkedlist() for i in range(size)])
+		self.array=[[] for i in range(size)]
 
 	def hashString(self,string):
 		sol=0
-		for char in string:
-			sol+=ord(char)
+		for i in range(len(string)):
+			sol+=ord(string[i])*i+1
 		return (sol*15485863)%self.size
 
 	def __setitem__(self,key,value):
-		self.array[self.hashString(key)].add((key,value))
+		lista=self.array[self.hashString(key)]
+		for i in range(len(lista)):
+			if lista[i][0]==key:
+				lista[i]=(key,value)
+				return True
+		lista.append((key,value))
 
 	def __getitem__(self,key):
-		head=self.array[self.hashString(key)].head
-		while head:
-			if head.data[0]==key:
-				return head.data[1]
-			head=head.next
-		return None
+		lista=self.array[self.hashString(key)]
+		for i in range(len(lista)):
+			if lista[i][0]==key:
+				return lista[i][1]
 
-
+	def delete(self,key):
+		lista=self.array[self.hashString(key)]
+		for i in range(len(lista)):
+			if lista[i][0]==key:
+				lista.pop(i)
+				return True
+		return False
