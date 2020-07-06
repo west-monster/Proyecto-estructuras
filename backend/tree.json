@@ -1,13 +1,9 @@
 {
-    "val": "B",
+    "val": "Pera",
     "left": {
-        "val": "A",
+        "val": "Coca-cola",
         "left": null,
         "right": null
     },
-    "right": {
-        "val": "Carbonated soft drinks",
-        "left": null,
-        "right": null
-    }
+    "right": null
 }
