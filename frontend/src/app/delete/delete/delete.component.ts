@@ -111,11 +111,15 @@ export class DeleteComponent implements AfterViewInit, OnDestroy {
         new: [aux]
       });
       $('#sellModal').modal('hide');
+      this.sold.get('tar').setValue('');
     });
   }
 
   get valid(){
     return this.childLoad ? this.adder.edit.valid : false;
+  }
+  get amount() {
+    return this.idEdit != null ? this.searcher.table.data[this.idEdit].cantidad : 0;
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

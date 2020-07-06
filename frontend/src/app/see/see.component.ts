@@ -59,4 +59,8 @@ export class SeeComponent  extends DeleteComponent{
     });
   }
 
+  get amount() {
+    return this.idEdit != null ? this.table.data[this.idEdit].cantidad : 0;
+  }
+
 }

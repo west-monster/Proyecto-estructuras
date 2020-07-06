@@ -50,10 +50,12 @@
             <div class="modal-body" style="text-align: center;">
                 <h3>Ingrese unidades a vender</h3>
                 <form [formGroup]="sold" novalidate="novalidate">
+                    Cantidad actual: {{ amount }}
                     <input type="text" id="elm" class="form-control" placeholder="Buscar" autofocus formControlName="tar">
                     <div *ngIf="sold.get('tar').dirty && sold.get('tar').errors?.pattern" class="alertForm">
                         Solo caracteres numericos.
                     </div>
+
                     <div *ngIf="sold.get('tar').dirty && sold.get('tar').errors?.big" class="alertForm">
                         No se puede vender mas de la cantidad en existencia.
                     </div>
