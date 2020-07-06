@@ -117,7 +117,6 @@ class avlTree(object):
     elif val>root.val:
       root.right=self.__insert(val,root.right)
 
-    
     self.actualH(root)
     bf=self.BF(root)
     
