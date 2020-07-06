@@ -56,6 +56,7 @@ export class SeeComponent  extends DeleteComponent{
         new: [aux]
       });
       $('#sellModal').modal('hide');
+      this.sold.get('tar').setValue('');
     });
   }
 

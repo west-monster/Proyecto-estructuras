@@ -1,25 +1,13 @@
 {
-    "val": "sd",
+    "val": "B",
     "left": {
-        "val": "Planet",
-        "left": {
-            "val": "Cat",
-            "left": null,
-            "right": null
-        },
-        "right": {
-            "val": "e",
-            "left": null,
-            "right": null
-        }
+        "val": "A",
+        "left": null,
+        "right": null
     },
     "right": {
-        "val": "w",
+        "val": "Carbonated soft drinks",
         "left": null,
-        "right": {
-            "val": "wee",
-            "left": null,
-            "right": null
-        }
+        "right": null
     }
 }

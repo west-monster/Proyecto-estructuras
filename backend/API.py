@@ -41,7 +41,7 @@ def editF():
 def addF():
     elm = request.get_json()['elm']
     almacenL = almacen()
-    almacenL.addInf(elm['nombre'], elm['precio'], elm['codigo'], elm['cantidad'])
+    almacenL.addInf(elm['nombre'], elm['precio'], elm['codigo'], elm['cantidad'], elm['fecha'])
     return '1'
 @app.route('/sort', methods=["GET"])
 def sortF():

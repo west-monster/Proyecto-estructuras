@@ -104,10 +104,10 @@ class almacen():
 			temp.append(producto)
 		return temp
 
-	def addInf(self,Nombre, precio, codigo, cantidad):
+	def addInf(self,Nombre, precio, codigo, cantidad, fecha):
 		if not self.search(Nombre):					#tener cuidado aqui
 			
-			insert(Nombre, precio, codigo, cantidad)
+			insert(Nombre, precio, codigo, cantidad, fecha)
 			self.tree.insert(Nombre)
 			self.toJson()
 			return True

@@ -24,14 +24,14 @@ def Tabla():
     data.commit()
 
 # a = string, b = float, c = int, d = int  (la fecha se pone automaticamente)
-def insert(a, b, c, d):
+def insert(a, b, c, d, e):
     data = sqlite3.connect('tablas.db')
     cursor = data.cursor()
     """name =  (a,)
     cursor.execute('SELECT Nombre FROM productos')
     items = cursor.fetchall()
     if name not in items:"""
-    entities = (a, b, c, d, datetime.date.today())
+    entities = (a, b, c, d, e)
     cursor.execute('''INSERT INTO productos(Nombre, precio, codigo, cantidad, fecha) VALUES(?, ?, ?, ?, ?)''', entities)
     data.commit()
     """else:
