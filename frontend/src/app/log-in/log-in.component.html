@@ -1,0 +1,14 @@
+<div class="container">
+    <form class="formlogin" [formGroup]="form" (ngSubmit)="submit()" novalidate="novalidate">
+        <h2 class="formloghead">Ingresar</h2>
+
+        <label for="user" class="sr-only">Usuario</label>
+        <input type="text" id="user" class="form-control" placeholder="Usuario" autofocus formControlName="user">
+        <label for="inputPassword" class="sr-only">Clave</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Clave" formControlName="pass">
+        <div *ngIf="flagLog" class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        <button class="btn btn-primary btn-lg" type="submit" [disabled]='!form.valid || validing'>Ir</button>
+    </form>
+</div>

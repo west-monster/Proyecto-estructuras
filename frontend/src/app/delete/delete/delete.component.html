@@ -18,6 +18,55 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <app-add></app-add>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="submit()" [disabled]="!valid">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sellModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vender</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <h3>Ingrese unidades a vender</h3>
+                <form [formGroup]="sold" novalidate="novalidate">
+                    <input type="text" id="elm" class="form-control" placeholder="Buscar" autofocus formControlName="tar">
+                    <div *ngIf="sold.get('tar').dirty && sold.get('tar').errors?.pattern" class="alertForm">
+                        Solo caracteres numericos.
+                    </div>
+                    <div *ngIf="sold.get('tar').dirty && sold.get('tar').errors?.big" class="alertForm">
+                        No se puede vender mas de la cantidad en existencia.
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="sell()" [disabled]="!sold.valid">Vender</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container bubble">
     <div class="row">
         <div class="col-md-6" style="text-align: center;">
@@ -28,4 +77,4 @@
         </div>
     </div>
 </div>
-<app-search [actionFlag]="2" [text]="'Eliminar'"></app-search>
+<app-search [actionFlag]="1"></app-search>

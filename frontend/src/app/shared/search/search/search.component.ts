@@ -12,7 +12,6 @@ import { ConnectionService } from '../../../services/connection.service';
 export class SearchComponent implements OnInit {
 
   @ViewChild(TableComponent) table;
-  @Input() text: string;
   @Input() actionFlag: number;
   public searchP: FormGroup;
   constructor(private conn: ConnectionService) {

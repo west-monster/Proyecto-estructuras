@@ -9,13 +9,12 @@ import { APP_ROUTING } from './app-routing.module';
 import { SeeComponent } from './see/see.component';
 import { TableComponent } from './shared/table/table/table.component';
 import { AddComponent } from './shared/add/add.component';
-import { SearchOpComponent } from './search/search/search.component';
 import { DeleteComponent } from './delete/delete/delete.component';
 import { SearchComponent } from './shared/search/search/search.component';
 import { HttpClientModule } from '@angular/common/http';
-import { EditComponent } from './edit/edit/edit.component';
 import { AdderComponent } from './adder/adder.component';
 import { ReversePipe } from './pipes/reverse.pipe';
+import { LogInComponent } from './log-in/log-in.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +24,11 @@ import { ReversePipe } from './pipes/reverse.pipe';
     SeeComponent,
     TableComponent,
     AddComponent,
-    SearchOpComponent,
     DeleteComponent,
     SearchComponent,
-    EditComponent,
     AdderComponent,
-    ReversePipe
+    ReversePipe,
+    LogInComponent
   ],
   imports: [
     BrowserModule,

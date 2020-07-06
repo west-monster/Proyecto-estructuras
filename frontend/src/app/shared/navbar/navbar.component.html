@@ -8,22 +8,26 @@
 
     </a>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/']" [ngClass]="{'active': router.url === '/'}">Ver</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/add']" [ngClass]="{'active': router.url === '/add'}">Añadir</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/search']" [ngClass]="{'active': router.url === '/search'}">Buscar</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/edit']" [ngClass]="{'active': router.url === '/edit'}">Editar</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/delete']" [ngClass]="{'active': router.url === '/delete'}">Eliminar</a>
-            </li>
-        </ul>
+        <ng-container *ngIf="router.url !== '/'; else elseLog">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/all']" [ngClass]="{'active': router.url === '/all'}">Ver</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/add']" [ngClass]="{'active': router.url === '/add'}">Añadir</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/manage']" [ngClass]="{'active': router.url === '/manage'}">Gestionar</a>
+                </li>
+            </ul>
+        </ng-container>
+        <ng-template #elseLog>
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" [routerLink]="['/']" [ngClass]="{'active': router.url === '/'}">Entrar</a>
+                </li>
+            </ul>
+        </ng-template>
+
     </div>
 </nav>

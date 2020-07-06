@@ -1,0 +1,20 @@
+.container {
+    max-width: 400px;
+    margin-top: 131px;
+    border: 1px solid #446CD4;
+    border-radius: 10px;
+    padding: 50px;
+}
+
+.formlogin input[type="text"] {
+    margin-bottom: 3px;
+}
+
+.formlogin input[type="password"] {
+    margin-bottom: 15px;
+}
+
+.form-control:focus {
+    border-color: #2E488E;
+    box-shadow: 0 0 0 0.2rem rgba(46, 72, 142, .25);
+}

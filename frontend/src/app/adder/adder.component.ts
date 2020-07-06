@@ -67,11 +67,12 @@ export class AdderComponent implements OnInit, AfterViewInit {
   removeFile() {
     this.file = null;
     this.notAdmit = false;
+    this.recomendations = [];
     console.log(this.file);
   }
 
   detecteItem() {
-
+    this.recomendations = [];
     const formData = new FormData();
     formData.append('file', this.file, 'img' + this.file.name.substring(this.file.name.indexOf('.')).toLowerCase());
 

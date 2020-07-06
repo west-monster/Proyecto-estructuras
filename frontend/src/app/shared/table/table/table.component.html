@@ -75,35 +75,32 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of data; let i = index;">
+                <tr *ngFor="let item of data; let i = index;" style="text-align: center;">
                     <th scope="row">
                         <span [ngSwitch]="actionFlag">
                         <div *ngSwitchCase="0">
                             {{i + 1 + firstId}}
+
+                                <button type="button" class="btn" data-toggle="modal" data-target="#modalAdd" (click)="triggerEdit(i);">
+                                     <i class="fas fa-edit"></i>
+                        </button>
                         </div>
                         <div *ngSwitchCase="1">
-                                <button style="min-width: 53px"type="button" class="btn" data-toggle="modal" data-target="#modalAdd" (click)="triggerEdit(i);">
-                                    <b style="margin: 10px
-                                    ;">{{i + 1 + firstId}}</b> <i class="fas fa-edit"></i>
+                                                            <input class="form-check-input" type="checkbox" [id]="'select' + i" (click)="addSelected(i + firstId)">
+                            {{i + 1 + firstId}}
+
+                                <button type="button" class="btn" data-toggle="modal" data-target="#modalAdd" (click)="triggerEdit(i);">
+                                     <i class="fas fa-edit"></i>
                         </button>
     </div>
-    <div *ngSwitchCase="2">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" [id]="'select' + i" (click)="addSelected(i + firstId)">
-            <label class="form-check-label">
-                                    {{i + 1 + firstId}}
-                                    </label>
 
-        </div>
-    </div>
-
-    <div *ngSwitchDefault>
-        <h1>Error</h1>
-    </div>
     </span>
 
                     </th>
-                    <td *ngFor="let key of keys"> {{ item[key] }}</td>
+                    <td *ngFor="let key of keys" [ngClass]="{'alertAm': item['cantidad'] == 0}"> {{ item[key] }}</td>
+                    <td style="padding-left: 0px;"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sellModal" (click)="triggerEdit(i);">
+                        Vender
+           </button></td>
                 </tr>
             </tbody>
         </table>

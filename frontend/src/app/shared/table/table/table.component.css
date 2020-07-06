@@ -3,3 +3,12 @@
         display: table !important;
     }
 }
+
+.form-check-input {
+    margin-top: 10px;
+}
+
+.alertAm {
+    color: #E71919;
+    ;
+}
