@@ -53,4 +53,8 @@ export class ConnectionService {
       observe: 'events'
     }).pipe( catchError(this.handleError));
   }
+  logIn(user: string, pass: string){
+    return this.http.get(this.baseUrl + `login?user=${user}&pass=${pass}`)
+    .pipe( catchError(this.handleError));
+  }
 }

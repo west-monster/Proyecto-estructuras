@@ -2,7 +2,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" style="padding-bottom: 0px; padding-top: 0px; ">
+    <a class="navbar-brand" style="padding-bottom: 0px; padding-top: 0px;" *ngIf="router.url !== '/'">
         <button type="button" class="btn btn-primary" style="padding-bottom: 0px; padding-top: 0px;" [disabled]="router.url != '/delete' && router.url != '/edit' || history.back.empty()" (click)="undo()"><i class="fas fa-arrow-circle-left"></i></button>
         <button type="button" class="btn btn-primary" style="padding-bottom: 0px; padding-top: 0px;" [disabled]="router.url != '/delete' && router.url != '/edit' || history.adv.empty()" (click)="noUndo()"><i class="fas fa-arrow-circle-right"></i></button>
 
@@ -29,5 +29,9 @@
             </ul>
         </ng-template>
 
+    </div>
+
+    <div *ngIf="router.url !== '/'">
+        <button type="button" class="btn btn-primary" [routerLink]="['/']"><i class="fas fa-door-open"></i></button>
     </div>
 </nav>

@@ -25,27 +25,22 @@ export class LogInComponent {
      });
  }
  submit() {
+  this.conn.logIn(this.form.get('user').value, this.form.get('pass').value).subscribe((ans) => {
+      if (ans) {
+        this.flagLog = false;
+        this.router.navigate(['/all']);
+      } else {
+        this.flagLog = true;
+        this.error = 'Clave o usuario incorrectos';
+        this.form.reset({
+          user: this.form.get('user').value,
+          pass: ''
+        });
+      }
+      this.validing = false;
+    
+  });
 
-
- }
- setSessionToken(value: any) {
-   const h: boolean = value.query;
-   const y: string = value.token;
-   if (h) {
-     this.flagLog = false;
-     sessionStorage.setItem('session', y);
-     if (!value.state) {
-       this.router.navigate(['/expired']);
-     }
-   } else {
-     this.flagLog = true;
-     this.error = 'Ups. Try again.';
-     this.form.reset({
-       user: this.form.get('user').value,
-       pass: ''
-     });
-   }
-   this.validing = false;
  }
 
 }

@@ -180,18 +180,3 @@ class hashTable:
 		return False
 
 a=almacen()
-lista=[]
-print(a.tree.size)
-for i in range(10000):
-	s=(randomword(5),i,i+1,i+2)
-	lista.append(s)
-	a.addInf(s[0],s[1],s[2],s[3])
-Minsert(lista)
-a.toJson
-print(a.tree.size)
-start=time.time()
-#a.search("aacrh")
-#a.sortBy("Nombre",0,a.tree.size)
-#a.deleteInf("aacrh")
-#a.addInf("aacrh",2,4,3)
-end=time.time()

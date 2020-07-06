@@ -4,6 +4,7 @@ from flask import jsonify
 from almacen import almacen
 import json
 from datasql import *
+from login import *
 app = Flask(__name__)
 CORS(app)
 @app.route('/seeAll', methods=["GET"])
@@ -47,3 +48,6 @@ def sortF():
     almacenL = almacen()
     
     return json.dumps(almacenL.sortBy(request.args['type'], int(request.args['fisrt']), int(request.args['last'])))
+@app.route('/login', methods=["GET"])
+def logIn():
+    return json.dumps(validarLogin(request.args['user'], request.args['pass']))
