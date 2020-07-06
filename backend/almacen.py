@@ -1,3 +1,4 @@
+import time
 from structures import randomword
 from datasql import *
 import trees
@@ -80,18 +81,25 @@ class almacen():
 			return None
 
 	def sortBy(self,column, first, last):
-		if column=="fecha":
-			return None
+		if column=="Nombre":
+			toSort=all_col(column)
+			table=hashTable(self.tree.size)
+			for i in range(self.tree.size):
+				table[toSort[i]]=i
+			Sorted=[]
+			for name in self.tree.printTree():
+				Sorted.append(table[name])
+
 		else:
 			toSort=all_col(column)
 			index=list(range(self.tree.size))
 			Sorted=trees.heapSort(toSort,self.tree.size,index)
-			print(Sorted)
+			#print(Sorted)
 		data=get_all()
-		print(data)
+		#print(data)
 		temp=[]
 		for i in Sorted[first:last]:
-			print(i)
+			#print(i)
 			producto=data[i]
 			temp.append(producto)
 		return temp
@@ -107,7 +115,6 @@ class almacen():
 			return False
 
 
-a=almacen()
 
 	
 class node:
@@ -137,48 +144,6 @@ class linkedlist:
 		while printval is not None:
 			print(printval.data)
 			printval = printval.next
-
-
-"""class stack:
-	def __init__(self):
-		self.lista2 = linkedlist()
-
-	def add2(self,value):
-		#acá se define la cantidad maxima de elementos que puede tener el stack.
-		if self.lista2.cantidad < 5:
-			self.lista2.add(value)
-		else:
-			self.lista2.head = self.lista2.head.next
-			self.lista2.add(value)
-
-	def unstack(self):
-		if self.lista2.head and self.lista2.cantidad != 0:
-			if self.lista2.head.data is not None:
-				a = self.lista2.head.data
-			if self.lista2.head.next is not None:
-				self.lista2.head = self.lista2.head.next
-				self.lista2.cantidad -= 1
-			else:
-				self.lista2.head = None
-				self.lista2.cantidad -= 1
-			return a
-		else:
-			return"""
-
-
-class queue():
-
-	def __init__(self):
-		self.pila1 = stack()
-		self.pila2 = stack()
-
-	def add3(self,newval):
-		self.pila1.add2(newval)
-		self.pila2.add2(self.pila1.unstack())
-
-	def desizing(self):
-		a = self.pila2.unstack()
-		return a
 
 
 class hashTable:
@@ -213,3 +178,20 @@ class hashTable:
 				lista.pop(i)
 				return True
 		return False
+
+a=almacen()
+lista=[]
+print(a.tree.size)
+for i in range(10000):
+	s=(randomword(5),i,i+1,i+2)
+	lista.append(s)
+	a.addInf(s[0],s[1],s[2],s[3])
+Minsert(lista)
+a.toJson
+print(a.tree.size)
+start=time.time()
+#a.search("aacrh")
+#a.sortBy("Nombre",0,a.tree.size)
+#a.deleteInf("aacrh")
+#a.addInf("aacrh",2,4,3)
+end=time.time()
