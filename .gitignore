@@ -3,6 +3,9 @@ backend/tablas.db
 backend/token.json
 backend/__pycache__/
 backend/venv/
+backend/IA.json
+backend/tablas.db
+backend/tree.json
 # compiled output
 frontend/dist
 frontend/tmp

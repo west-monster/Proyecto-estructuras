@@ -47,7 +47,13 @@
 
     </div>
 </div>
-<div class="container bubble" style="text-align: center;">
+<div class="container bubble" style="text-align: center; margin-top: 5px;">
     <app-add></app-add>
     <button type="button" class="btn btn-primary" (click)="submit()" [disabled]="!valid">Añadir</button>
+</div>
+
+<div class="container" style="margin-top: 10px;">
+    <div *ngIf="added" class="alert alert-success" role="alert">
+        Añadido exitosamente
+    </div>
 </div>

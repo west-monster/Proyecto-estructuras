@@ -21,6 +21,8 @@ export class AdderComponent implements OnInit, AfterViewInit {
   public errorUpload: boolean;
   public progress: string;
 
+  public added: boolean;
+
   public recomendations: Recomendations[];
   constructor(private conn: ConnectionService, public domS: DomSanitizer) {
     this.loadChild = false;
@@ -31,6 +33,7 @@ export class AdderComponent implements OnInit, AfterViewInit {
     this.errorUpload = false;
     this.progress = '';
     this.recomendations = [];
+    this.added = false;
    }
 
   ngOnInit(): void {
@@ -43,13 +46,15 @@ export class AdderComponent implements OnInit, AfterViewInit {
     this.loadChild = true;
   }
   submit(){
+    this.added = false;
     this.conn.add(this.adder.edit.value).subscribe((ans: boolean) => {
+      this.added = true;
     });
   }
 
   addFileGroup(event) {
     let auxType: string;
-
+    this.added = false;
     auxType = event.target.files[0].name.substring(event.target.files[0].name.indexOf('.')).toLowerCase();
     if (auxType === '.png' || auxType === '.jpeg' || auxType === '.jpg') {
 
@@ -65,6 +70,7 @@ export class AdderComponent implements OnInit, AfterViewInit {
     console.log(this.file);
   }
   removeFile() {
+    this.added = false;
     this.file = null;
     this.notAdmit = false;
     this.recomendations = [];

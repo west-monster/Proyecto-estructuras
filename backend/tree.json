@@ -1,1 +1,25 @@
-null
+{
+    "val": "sd",
+    "left": {
+        "val": "Planet",
+        "left": {
+            "val": "Cat",
+            "left": null,
+            "right": null
+        },
+        "right": {
+            "val": "e",
+            "left": null,
+            "right": null
+        }
+    },
+    "right": {
+        "val": "w",
+        "left": null,
+        "right": {
+            "val": "wee",
+            "left": null,
+            "right": null
+        }
+    }
+}
